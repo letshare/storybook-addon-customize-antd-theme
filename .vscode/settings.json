@@ -1,0 +1,10 @@
+{
+    "standard.enable": false,
+    "standard.autoFixOnSave": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false
+}
