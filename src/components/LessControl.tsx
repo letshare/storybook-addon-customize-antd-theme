@@ -2,8 +2,7 @@ import React from 'react'
 import { useArgs, useArgTypes, useParameter, useStorybookState } from '@storybook/api'
 import { Button, ArgsTable, SortType } from '@storybook/components'
 import { addons } from '@storybook/addons'
-
-const PARAM_KEY = 'controls'
+import { PARAM_KEY, EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
 
 interface ControlsParameters {
   sort?: SortType;
@@ -53,10 +52,10 @@ export default function ControlsPanel () {
     console.log('handleUpdateArgs', args)
     // eslint-disable-next-line no-useless-call
     updateArgs.call(null, ...args)
-    bus.emit('change-less', args)
+    bus.emit(EVENT_CHANGE_LESS, args)
   }
 
-  bus.on('receive-less', (vars) => {
+  bus.on(EVENT_EXPORT_LESS, (vars) => {
     if (locked) return
     locked = true
     const a = document.createElement('a')
@@ -72,7 +71,7 @@ export default function ControlsPanel () {
 
   return (
     <>
-      <Button small secondary onClick={() => { bus.emit('get-less') }}>导出</Button> / <Button small gray onClick={() => { console.log('重置') }}>重置</Button>
+      <Button small secondary onClick={() => { bus.emit(TRIGGER_EXPORT_LESS) }}>导出</Button> / <Button small gray onClick={() => { console.log('重置') }}>重置</Button>
       <ArgsTable
         {...{
           key: path, // resets state when switching stories

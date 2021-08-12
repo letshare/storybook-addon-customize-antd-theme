@@ -4,17 +4,18 @@ import { Button } from 'antd'
 import { Helmet } from 'react-helmet'
 import { addons } from '@storybook/addons'
 import * as jsondiffpatch from 'jsondiffpatch'
-import less from '!!file-loader?modules!./less.min.js'
-import theme from '!!file-loader?modules!./theme.less'
+import less from '!!file-loader?modules!../lib/less/less.min.js'
+import theme from '!!file-loader?modules!../lib/theme/theme.less'
+import { EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
 
-let preVars
+let preVars:{}
 const modifies = {} // TODO 更新
 
-export default function Theme ({ title }) {
+export default function Theme ({ title } : {title:string}) {
   const bus = addons.getChannel()
 
-  bus.on('change-less', (args) => {
-    const vars = {}
+  bus.on(EVENT_CHANGE_LESS, (args) => {
+    const vars: {[key:string]: any} = {}
     for (const [key, value] of Object.entries(args[0])) {
       vars[`@${key}`] = value
     }
@@ -26,8 +27,8 @@ export default function Theme ({ title }) {
     }
   })
 
-  bus.on('get-less', () => {
-    bus.emit('receive-less', modifies)
+  bus.on(TRIGGER_EXPORT_LESS, () => {
+    bus.emit(EVENT_EXPORT_LESS, modifies)
   })
 
   return (

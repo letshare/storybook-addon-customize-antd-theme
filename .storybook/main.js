@@ -4,8 +4,8 @@ const path = require("path")
 
 module.exports = {
   stories: [
-    "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/stories/**/*.stories.mdx",
+    "../src/stories/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: ["../preset.js", "@storybook/addon-essentials"],
   webpackFinal: (config) => {

@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/storybookjs/storybook-addon-kit"
   },
-  "author": "ludun",
+  "author": "ludun.cai@shopee.com",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -39,7 +39,7 @@
     "release": "yarn build && auto shipit"
   },
   "bin": {
-    "derive": "./bin/deriveType.js"
+    "derive": "./bin/deriveAntd.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

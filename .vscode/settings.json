@@ -6,5 +6,7 @@
     },
     "css.validate": false,
     "less.validate": false,
-    "scss.validate": false
+    "scss.validate": false,
+    "stylelint.enable": false,
+    "stylelint.validate": ["css", "html", "scss"]
 }
