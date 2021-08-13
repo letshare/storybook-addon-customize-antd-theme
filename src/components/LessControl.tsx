@@ -1,8 +1,10 @@
-import React from 'react'
-import { useArgs, useArgTypes, useParameter, useStorybookState } from '@storybook/api'
+import React, { useState } from 'react'
+import { useArgs, useParameter, useStorybookState } from '@storybook/api'
 import { Button, ArgsTable, SortType } from '@storybook/components'
 import { addons } from '@storybook/addons'
 import { PARAM_KEY, EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
+import { LessArgGenerator } from '../lib/utils'
+import antdLessValue from '../lib/theme/antdLessValue'
 
 interface ControlsParameters {
   sort?: SortType;
@@ -10,48 +12,24 @@ interface ControlsParameters {
 
 let locked = false
 export default function ControlsPanel () {
-  const [args, updateArgs, resetArgs] = useArgs()
-  const rows = useArgTypes()
+  // eslint-disable-next-line no-unused-vars
+  const [_, updateArgs, resetArgs] = useArgs()
+  const [argsGenerator] = useState(new LessArgGenerator(antdLessValue))
+  const [argsValues] = useState({ ...antdLessValue })
+
   const {
     sort
   } = useParameter<ControlsParameters>(PARAM_KEY, {})
   const { path } = useStorybookState()
 
   const bus = addons.getChannel()
-  console.log('args', args)
-  console.log('rows', rows)
-
-  const lessRows: any = {
-    'primary-color': {
-      name: 'primary-color',
-      control: { type: 'color' },
-      description: '重要色',
-      table: {
-        defaultValue: {
-          detail: undefined,
-          summary: '#1890ff'
-        },
-        jsDocTags: undefined,
-        type: {
-          detail: undefined,
-          summary: 'color'
-        }
-      },
-      type: {
-        name: 'color',
-        required: false
-      }
-    }
-  }
-
-  const lessArgs: any = {
-    'primary-color': '#1890ff'
-  }
+  console.log('args', argsGenerator.args)
 
   const handleUpdateArgs = (...args: any[]) => {
     console.log('handleUpdateArgs', args)
     // eslint-disable-next-line no-useless-call
     updateArgs.call(null, ...args)
+    Object.assign(argsValues, { ...args[0] })
     bus.emit(EVENT_CHANGE_LESS, args)
   }
 
@@ -71,13 +49,13 @@ export default function ControlsPanel () {
 
   return (
     <>
-      <Button small secondary onClick={() => { bus.emit(TRIGGER_EXPORT_LESS) }}>导出</Button> / <Button small gray onClick={() => { console.log('重置') }}>重置</Button>
+      <Button small secondary onClick={() => { bus.emit(TRIGGER_EXPORT_LESS) }}>导出json</Button>  <Button small gray onClick={() => { console.log('重置') }}>重置</Button>
       <ArgsTable
         {...{
           key: path, // resets state when switching stories
           // compact: !expanded && hasControls,
-          rows: lessRows,
-          args: lessArgs,
+          rows: argsGenerator.args,
+          args: argsValues,
           updateArgs: handleUpdateArgs,
           resetArgs,
           inAddonPanel: true,

@@ -49,6 +49,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@storybook/addon-essentials": "^6.3.6",
     "@storybook/react": "^6.3.7",
+    "@types/lodash": "^4.14.172",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "auto": "^10.3.0",
@@ -65,7 +66,7 @@
     "eslint-plugin-react": "^7.24.0",
     "less": "^4.1.1",
     "less-plugin-variables-output": "^1.2.0",
-    "prettier": "^2.3.1",
+    "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -106,6 +107,7 @@
   "dependencies": {
     "antd": "^4.16.10",
     "jsondiffpatch": "^0.4.1",
+    "lodash": "^4.17.21",
     "react-helmet": "^6.1.0"
   }
 }

@@ -12,3 +12,18 @@ export const EVENTS = {
   REQUEST: `${ADDON_ID}/request`,
   CLEAR: `${ADDON_ID}/clear`
 }
+
+export const CONTROL_DATA_TYPE: {[key:string]:string} = {
+  boolean: 'boolean',
+  number: 'number',
+  range: 'number',
+  radio: 'enum',
+  'inline-radio': 'enum',
+  check: 'enum',
+  'inline-check': 'enum',
+  select: 'enum',
+  'multi-select': 'enum',
+  text: 'string',
+  color: 'string',
+  date: 'string'
+}

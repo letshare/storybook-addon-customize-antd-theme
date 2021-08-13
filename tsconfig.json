@@ -5,6 +5,7 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "incremental": false,
     "isolatedModules": true,
     "jsx": "react",
