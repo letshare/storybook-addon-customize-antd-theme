@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useStorybookState } from '@storybook/api'
-import { Button, ArgsTable } from '@storybook/components'
+import { Button } from '@storybook/components'
 import { addons } from '@storybook/addons'
 import { EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
 import { LessArgGenerator } from '../lib/utils'
 import antdLessValue from '../lib/theme/antdLessValue'
+import ArgsTable from './ArgsTable'
 
 export default function ControlsPanel () {
   const [argsGenerator] = useState(() => new LessArgGenerator(antdLessValue))
@@ -38,10 +39,9 @@ export default function ControlsPanel () {
       <Button small gray onClick={() => { console.log('重置') }}>reset</Button>
       <ArgsTable
         key ={path}
-        rows={argsGenerator.args}
+        rows={argsGenerator.hints}
         args={argsValues}
         updateArgs={handleUpdateArgs}
-        inAddonPanel
       />
     </>
   )

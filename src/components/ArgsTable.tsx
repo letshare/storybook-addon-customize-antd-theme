@@ -1,67 +1,76 @@
-import React, { useState } from 'react'
-import { useArgs, useParameter, useStorybookState } from '@storybook/api'
-import { Button, SortType } from '@storybook/components'
-import { addons } from '@storybook/addons'
-import { PARAM_KEY, EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
-import { LessArgGenerator } from '../lib/utils'
-import antdLessValue from '../lib/theme/antdLessValue'
+import React from 'react'
+import { ArgTypes, ArgType, Args } from '../interface'
+import SectionRow from './SectionRow'
+import ArgRow from './ArgRow'
 
-interface ControlsParameters {
-  sort?: SortType;
-}
+type Row = { key: string } & ArgType
+type Section = {
+  ungrouped: Row[];
+};
 
-let locked = false
-export default function ArgsTable () {
-  // eslint-disable-next-line no-unused-vars
-  const [_, updateArgs, resetArgs] = useArgs()
-  const [argsGenerator] = useState(new LessArgGenerator(antdLessValue))
-  const [argsValues] = useState({ ...antdLessValue })
+type Sections = {
+  ungrouped: Row[];
+  sections: Record<string, Section>;
+};
 
-  const {
-    sort
-  } = useParameter<ControlsParameters>(PARAM_KEY, {})
-  const { path } = useStorybookState()
+const groupRows = (rows: ArgTypes) => {
+  const sections:Sections = { ungrouped: [], sections: {} }
+  if (!rows) return sections
 
-  const bus = addons.getChannel()
-  console.log('args', argsGenerator.args)
-
-  const handleUpdateArgs = (...args: any[]) => {
-    console.log('handleUpdateArgs', args)
-    // eslint-disable-next-line no-useless-call
-    updateArgs.call(null, ...args)
-    Object.assign(argsValues, { ...args[0] })
-    bus.emit(EVENT_CHANGE_LESS, args)
-  }
-
-  bus.on(EVENT_EXPORT_LESS, (vars) => {
-    if (locked) return
-    locked = true
-    const a = document.createElement('a')
-    const blob = new Blob([JSON.stringify(vars, null, 2)])
-    a.href = URL.createObjectURL(blob)
-    a.download = 'custom-antd.json'
-    console.log('receive-less', vars)
-    a.click()
-    setTimeout(() => {
-      locked = false
-    }, 2000)
+  Object.entries(rows).forEach(([key, row]) => {
+    const { category } = row
+    if (category) {
+      const section = sections.sections[category] || { ungrouped: [] }
+      section.ungrouped.push({ key, ...row })
+      sections.sections[category] = section
+    } else {
+      sections.ungrouped.push({ key, ...row })
+    }
   })
 
+  return sections
+}
+
+export interface ArgsTableRowProps {
+  rows: ArgTypes;
+  args?: Args;
+  updateArgs?: (args: Args) => void;
+  resetArgs?: (argNames?: string[]) => void;
+}
+
+export default function ArgsTable ({
+  rows,
+  args,
+  updateArgs,
+  resetArgs
+}: ArgsTableRowProps) {
+  const groups = groupRows(rows)
+  const expandable = Object.keys(groups.sections).length > 0
+  const colSpan = 4
+
   return (
-    <>
-      <Button small secondary onClick={() => { bus.emit(TRIGGER_EXPORT_LESS) }}>export json</Button>  <Button small gray onClick={() => { console.log('重置') }}>reset</Button>
-      <ArgsTable
-        {...{
-          key: path, // resets state when switching stories
-          // compact: !expanded && hasControls,
-          rows: argsGenerator.args,
-          args: argsValues,
-          updateArgs: handleUpdateArgs,
-          resetArgs,
-          inAddonPanel: true,
-          sort
-        }}
-      />
-    </>
+    <table>
+      <thead className="docblock-argstable-head">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody className="docblock-argstable-body">
+          {groups.ungrouped.map((row) => (
+            <ArgRow key={row.key} expandable={expandable} row={row} arg={args && args[row.key]} updateArgs={updateArgs} />
+          ))}
+
+          {Object.entries(groups.sections).map(([category, section]) => (
+            <SectionRow key={category} label={category} level="section" colSpan={colSpan}>
+              {section.ungrouped.map((row) => (
+                <ArgRow key={row.key} expandable={expandable} row={row} arg={args && args[row.key]} updateArgs={updateArgs} />
+              ))}
+            </SectionRow>
+          ))}
+        </tbody>
+    </table>
   )
 }
