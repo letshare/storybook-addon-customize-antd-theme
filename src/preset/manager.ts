@@ -8,7 +8,7 @@ addons.register(ADDON_ID, () => {
   // Register the panel
   addons.add(PANEL_ID, {
     type: types.PANEL,
-    title: 'Modify Less',
+    title: 'Modify Antd Style',
     match: ({ viewMode }) => {
       console.log('viewMode', viewMode)
       return viewMode === 'story'

@@ -79,10 +79,20 @@ const aliasReg = new RegExp(`^(${Object.keys(alias).join('|')})`)
 
 const colorReg = /^(rgb\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?\))$|^(rgba\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\))$|^(transparent)$|^(#([a-fA-F0-9]){3})$|^(#([a-fA-F0-9]){6}$)|(^hsl\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?\)$)|(^hsla\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\)$)$/
 
+interface ArgType {
+  [key: string]: {
+    value: string;
+    desc?: string;
+    type?: string;
+    category?: string;
+    select?: string[];
+  }
+}
+
 // 由plain对象生成control args
 export class LessArgGenerator {
   vars: {[key: string]:any}
-  hints: {[key: string]:any} = {}
+  hints: ArgType = {}
   args: {[key: string]:any} = {}
   constructor (vars: {}) {
     this.vars = vars
@@ -125,6 +135,11 @@ export class LessArgGenerator {
       } else {
         this.hints[key].type = 'text'
       }
+    })
+
+    use((key, value) => {
+      this.hints[key].desc = (descMap as {[key: string]:any})[key]
+      this.hints[key].category = this.hints[key].category || 'Global'
     })
 
     for (const [key, value] of Object.entries(this.vars)) {
