@@ -4,7 +4,7 @@ import { Button, ArgsTable, SortType } from '@storybook/components'
 import { addons } from '@storybook/addons'
 import { PARAM_KEY, EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants'
 import { LessArgGenerator } from '../lib/utils'
-import antdLessValue from '../lib/theme/antdLessValue'
+import antdLessValue from '../lib/antd-helper/antdLessValue'
 
 interface ControlsParameters {
   sort?: SortType;

@@ -42,33 +42,32 @@ export default function ArgControl ({ control, arg, updateArgs }: ArgControlProp
   const onFocus = useCallback(() => setFocused(true), [])
 
   if (!control || disable) return <NoControl />
-
   // row.name is a display name and not a suitable DOM input id or name - i might contain whitespace etc.
   // row.key is a hash key and therefore a much safer choice
   const props = { name: key, value: boxedValue.value, onChange, onBlur, onFocus } as any
   switch (control.type) {
     case 'array':
     case 'object':
-      return <ObjectControl {...props} {...control} />
+      return <ObjectControl {...props} {...control}/>
     case 'boolean':
-      return <BooleanControl {...props} {...control} />
+      return <BooleanControl {...props} {...control}/>
     case 'color':
-      return <ColorControl {...props} {...control} />
+      return <ColorControl {...props} {...control}/>
     case 'date':
-      return <DateControl {...props} {...control} />
+      return <DateControl {...props} {...control}/>
     case 'number':
-      return <NumberControl {...props} {...control} />
+      return <NumberControl {...props} {...control}/>
     case 'check':
     case 'inline-check':
     case 'radio':
     case 'inline-radio':
     case 'select':
     case 'range':
-      return <RangeControl {...props} {...control} />
+      return <RangeControl {...props} {...control}/>
     case 'text':
-      return <TextControl {...props} {...control} />
+      return <TextControl {...props} {...control}/>
     case 'file':
-      return <FilesControl {...props} {...control} />
+      return <FilesControl {...props} {...control}/>
     default:
       return <NoControl />
   }

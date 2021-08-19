@@ -1,7 +1,7 @@
 import { camelCase, upperFirst } from 'lodash'
 import { CONTROL_DATA_TYPE } from '../../constants'
-import { ArgTypes, ArgType } from '../../interface'
-import descMap from '../theme/lessValueDesc'
+import { ArgTypes } from '../../interface'
+import descMap from '../antd-helper/lessValueDesc'
 
 const modules = [
   'link',

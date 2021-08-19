@@ -220,7 +220,6 @@ export default function ArgsTable ({
   const groups = groupRows(rows)
   const expandable = Object.keys(groups.sections).length > 0
   const colSpan = 4
-
   return (
     <TableWrapper className="docblock-argstable">
       <thead className="docblock-argstable-head">

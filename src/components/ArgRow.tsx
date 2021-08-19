@@ -98,7 +98,7 @@ export default function ArgRow ({ row, arg, updateArgs, expandable }: ArgRowProp
       {updateArgs
         ? (
         <td>
-          <ArgControl control={{ key: name, type, value }} arg={arg} updateArgs={updateArgs}/>
+          <ArgControl control={{ key: name, type }} arg={arg} updateArgs={updateArgs}/>
         </td>
           )
         : null}

@@ -8,5 +8,5 @@
     "less.validate": false,
     "scss.validate": false,
     "stylelint.enable": false,
-    "stylelint.validate": ["css", "html", "scss"]
+    "stylelint.validate": ["css"]
 }

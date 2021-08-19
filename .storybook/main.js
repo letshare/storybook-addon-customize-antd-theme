@@ -4,8 +4,7 @@ const path = require("path")
 
 module.exports = {
   stories: [
-    "../src/stories/**/*.stories.mdx",
-    "../src/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/stories/**/*.@(mdx|js|jsx|ts|tsx)",
   ],
   addons: ["../preset.js", "@storybook/addon-essentials"],
   webpackFinal: (config) => {
@@ -15,11 +14,5 @@ module.exports = {
       ],
     }));
     return config;
-  },
-  refs: {
-    Design: {
-      title: '',
-      url: 'http://localhost:6007',
-    },
-  },
+  }
 };

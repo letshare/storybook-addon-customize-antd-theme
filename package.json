@@ -1,11 +1,15 @@
 {
   "name": "design-addon",
   "version": "0.0.1",
-  "description": "a Storybook addon help you quickly build a  ant design theme",
+  "description": "a Storybook addon help you quickly build a ant design theme",
   "keywords": [
     "storybook-addons",
-    "style",
-    "test"
+    "storybook addon",
+    "antd",
+    "Ant Design",
+    "theme",
+    "antd 主题",
+    "Ant Design 主题"
   ],
   "repository": {
     "type": "git",
@@ -23,23 +27,21 @@
     "*.d.ts"
   ],
   "scripts": {
+    "predev": "zx scripts/derive-antd.mjs",
     "clean": "rimraf ./dist",
     "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
-    "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
-    "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildBabel:cjs": "babel ./src -d ./dist/cjs --ignore \"src/assets/**/*\" --copy-files --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildBabel:esm": "babel ./src -d ./dist/esm --ignore \"src/assets/**/*\" --copy-files --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
     "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist/ts",
     "prebuild": "yarn clean",
     "build": "concurrently \"yarn buildBabel\" \"yarn buildTsc\"",
     "build:watch": "concurrently \"yarn buildBabel:esm -- --watch\" \"yarn buildTsc -- --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6007",
     "start": "concurrently \"yarn build:watch\" \"yarn storybook -- --no-manager-cache --quiet\"",
     "build-storybook": "build-storybook",
     "prerelease": "zx scripts/prepublish-checks.mjs",
     "release": "yarn build && auto shipit"
-  },
-  "bin": {
-    "derive": "./bin/deriveAntd.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -96,7 +98,7 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "design addon",
+    "displayName": "Modify Antd Less",
     "supportedFrameworks": [
       "react",
       "vue",
