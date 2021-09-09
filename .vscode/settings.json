@@ -8,5 +8,9 @@
     "less.validate": false,
     "scss.validate": false,
     "stylelint.enable": false,
-    "stylelint.validate": ["css"]
+    "stylelint.validate": [
+        "css"
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
