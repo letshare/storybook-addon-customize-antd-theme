@@ -37,6 +37,25 @@ import {
   Rate,
   Card,
   Comment,
+  Tabs,
+  BackTop,
+  Pagination,
+  PageHeader,
+  Breadcrumb,
+  Slider,
+  Tree,
+  Skeleton,
+  Transfer,
+  Alert,
+  List,
+  Statistic,
+  Drawer,
+  Timeline,
+  Typography,
+  Steps,
+  notification,
+  Result,
+  Image,
 } from 'antd';
 import {
   DownloadOutlined,
@@ -61,15 +80,17 @@ const { Option } = Mentions;
 const { Option: SOption } = Select;
 const { Link } = Anchor;
 const { Meta } = Card;
-
-const content = (
-  <div>
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-);
+const { TabPane } = Tabs;
+const { Title, Paragraph, Text } = Typography;
+const { Step } = Steps;
 
 function PopoverDemo() {
+  const content = (
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+  );
   return (
     <Popover content={content} title="Title">
       <Button type="primary">Hover me</Button>
@@ -158,24 +179,23 @@ function DescriptionsDemo() {
   );
 }
 
-const menu = (
-  <Menu>
-    <Menu.ItemGroup title="Group title">
-      <Menu.Item>1st menu item</Menu.Item>
-      <Menu.Item>2nd menu item</Menu.Item>
-    </Menu.ItemGroup>
-    <SubMenu title="sub menu">
-      <Menu.Item>3rd menu item</Menu.Item>
-      <Menu.Item>4th menu item</Menu.Item>
-    </SubMenu>
-    <SubMenu title="disabled sub menu" disabled>
-      <Menu.Item>5d menu item</Menu.Item>
-      <Menu.Item>6th menu item</Menu.Item>
-    </SubMenu>
-  </Menu>
-);
-
 function DropdownDemo() {
+  const menu = (
+    <Menu>
+      <Menu.ItemGroup title="Group title">
+        <Menu.Item>1st menu item</Menu.Item>
+        <Menu.Item>2nd menu item</Menu.Item>
+      </Menu.ItemGroup>
+      <SubMenu title="sub menu">
+        <Menu.Item>3rd menu item</Menu.Item>
+        <Menu.Item>4th menu item</Menu.Item>
+      </SubMenu>
+      <SubMenu title="disabled sub menu" disabled>
+        <Menu.Item>5d menu item</Menu.Item>
+        <Menu.Item>6th menu item</Menu.Item>
+      </SubMenu>
+    </Menu>
+  );
   return (
     <Dropdown overlay={menu}>
       <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
@@ -185,19 +205,18 @@ function DropdownDemo() {
   );
 }
 
-const plainOptions = ['Apple', 'Pear', 'Orange'];
-const options = [
-  { label: 'Apple', value: 'Apple' },
-  { label: 'Pear', value: 'Pear' },
-  { label: 'Orange', value: 'Orange' },
-];
-const optionsWithDisabled = [
-  { label: 'Apple', value: 'Apple' },
-  { label: 'Pear', value: 'Pear' },
-  { label: 'Orange', value: 'Orange', disabled: true },
-];
-
 function RadioDemo() {
+  const plainOptions = ['Apple', 'Pear', 'Orange'];
+  const options = [
+    { label: 'Apple', value: 'Apple' },
+    { label: 'Pear', value: 'Pear' },
+    { label: 'Orange', value: 'Orange' },
+  ];
+  const optionsWithDisabled = [
+    { label: 'Apple', value: 'Apple' },
+    { label: 'Pear', value: 'Pear' },
+    { label: 'Orange', value: 'Orange', disabled: true },
+  ];
   const [state, setState] = useState({
     value1: 'Apple',
     value2: 'Apple',
@@ -738,7 +757,7 @@ function CalendarDemo() {
 
 function BadgeDemo() {
   return (
-    <>
+    <Space size="middle">
       <Badge count={5}>
         <Avatar shape="square" size="large" />
       </Badge>
@@ -751,7 +770,7 @@ function BadgeDemo() {
       <Badge dot>
         <Avatar shape="square" size="large" />
       </Badge>
-    </>
+    </Space>
   );
 }
 
@@ -823,68 +842,486 @@ function CommentDemo() {
     />
   );
 }
+
 function TabsDemo() {
-  return null;
+  return (
+    <Space direction="vertical" size="large">
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="Tab 1" key="1">
+          Content of Tab Pane 1
+        </TabPane>
+        <TabPane tab="Tab 2" key="2">
+          Content of Tab Pane 2
+        </TabPane>
+        <TabPane tab="Tab 3" key="3">
+          Content of Tab Pane 3
+        </TabPane>
+      </Tabs>
+      <Tabs defaultActiveKey="1" tabPosition="left">
+        <TabPane tab="Tab 1" key="1">
+          Content of Tab Pane 1
+        </TabPane>
+        <TabPane tab="Tab 2" key="2">
+          Content of Tab Pane 2
+        </TabPane>
+        <TabPane tab="Tab 3" key="3">
+          Content of Tab Pane 3
+        </TabPane>
+      </Tabs>
+      <Tabs type="card">
+        <TabPane tab="Tab 1" key="1">
+          Content of Tab Pane 1
+        </TabPane>
+        <TabPane tab="Tab 2" key="2">
+          Content of Tab Pane 2
+        </TabPane>
+        <TabPane tab="Tab 3" key="3">
+          Content of Tab Pane 3
+        </TabPane>
+      </Tabs>
+    </Space>
+  );
 }
+
 function BackTopDemo() {
-  return null;
+  return (
+    <>
+      <BackTop />
+      Scroll down to see the bottom-right
+      <strong className="site-back-top-basic"> gray </strong>
+      button.
+    </>
+  );
 }
+
 function AvatarDemo() {
-  return null;
+  return (
+    <>
+      <div>
+        <Avatar size={64} icon={<UserOutlined />} />
+        <Avatar size="large" icon={<UserOutlined />} />
+        <Avatar icon={<UserOutlined />} />
+        <Avatar size="small" icon={<UserOutlined />} />
+      </div>
+      <div>
+        <Avatar shape="square" size={64} icon={<UserOutlined />} />
+        <Avatar shape="square" size="large" icon={<UserOutlined />} />
+        <Avatar shape="square" icon={<UserOutlined />} />
+        <Avatar shape="square" size="small" icon={<UserOutlined />} />
+      </div>
+    </>
+  );
 }
+
 function SwitchDemo() {
-  return null;
+  const [disabled, setDisabled] = React.useState(true);
+
+  const toggle = () => {
+    setDisabled(!disabled);
+  };
+  return (
+    <>
+      <Switch defaultChecked />
+      <br />
+      <Switch size="small" defaultChecked />
+      <br />
+      <Switch disabled={disabled} defaultChecked />
+      <br />
+      <Button type="primary" onClick={toggle}>
+        Toggle disabled
+      </Button>
+    </>
+  );
 }
+
 function PaginationDemo() {
-  return null;
+  function showTotal(total: number) {
+    return `Total ${total} items`;
+  }
+  return (
+    <>
+      <Pagination showQuickJumper defaultCurrent={2} total={500} />
+      <br />
+      <Pagination showQuickJumper defaultCurrent={2} total={500} disabled />
+      <br />
+      <Pagination size="small" total={50} />
+      <br />
+      <Pagination size="small" total={50} showSizeChanger showQuickJumper />
+      <br />
+      <Pagination size="small" total={50} showTotal={showTotal} />
+      <br />
+      <Pagination size="small" total={50} disabled showTotal={showTotal} showSizeChanger showQuickJumper />
+    </>
+  );
 }
+
 function PageHeaderDemo() {
-  return null;
+  const routes = [
+    {
+      path: 'index',
+      breadcrumbName: 'First-level Menu',
+    },
+    {
+      path: 'first',
+      breadcrumbName: 'Second-level Menu',
+    },
+    {
+      path: 'second',
+      breadcrumbName: 'Third-level Menu',
+    },
+  ];
+  return (
+    <Space direction="vertical">
+      <PageHeader className="site-page-header" onBack={() => null} title="Title" subTitle="This is a subtitle" />
+      <PageHeader className="site-page-header" title="Title" breadcrumb={{ routes }} subTitle="This is a subtitle" />
+    </Space>
+  );
 }
+
 function BreadcrumbDemo() {
-  return null;
+  return (
+    <Breadcrumb>
+      <Breadcrumb.Item>Home</Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <a href="">Application Center</a>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <a href="">Application List</a>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>An Application</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 }
+
 function SliderDemo() {
-  return null;
+  const [disabled, setState] = useState(false);
+  const handleDisabledChange = (disabled: boolean) => {
+    setState(disabled);
+  };
+  return (
+    <>
+      <Slider defaultValue={30} disabled={disabled} />
+      <Slider range defaultValue={[20, 50]} disabled={disabled} />
+      Disabled: <Switch size="small" checked={disabled} onChange={handleDisabledChange} />
+    </>
+  );
 }
+
+const treeData = [
+  {
+    title: 'parent 1',
+    key: '0-0',
+    children: [
+      {
+        title: 'parent 1-0',
+        key: '0-0-0',
+        disabled: true,
+        children: [
+          {
+            title: 'leaf',
+            key: '0-0-0-0',
+            disableCheckbox: true,
+          },
+          {
+            title: 'leaf',
+            key: '0-0-0-1',
+          },
+        ],
+      },
+      {
+        title: 'parent 1-1',
+        key: '0-0-1',
+        children: [
+          {
+            title: (
+              <span
+                style={{
+                  color: '#1890ff',
+                }}
+              >
+                sss
+              </span>
+            ),
+            key: '0-0-1-0',
+          },
+        ],
+      },
+    ],
+  },
+];
+
 function TreeDemo() {
-  return null;
+  return (
+    <Tree
+      checkable
+      defaultExpandedKeys={['0-0-0', '0-0-1']}
+      defaultSelectedKeys={['0-0-0', '0-0-1']}
+      defaultCheckedKeys={['0-0-0', '0-0-1']}
+      treeData={treeData}
+    />
+  );
 }
+
 function SkeletonDemo() {
-  return null;
+  return <Skeleton avatar paragraph={{ rows: 4 }} />;
 }
+
 function TransferDemo() {
-  return null;
+  const mockData = [];
+  for (let i = 0; i < 20; i++) {
+    mockData.push({
+      key: i.toString(),
+      title: `content${i + 1}`,
+      description: `description of content${i + 1}`,
+    });
+  }
+
+  const initialTargetKeys = mockData.filter((item) => +item.key > 10).map((item) => item.key);
+
+  const [targetKeys, setTargetKeys] = useState(initialTargetKeys);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const onChange = (nextTargetKeys: any, direction: any, moveKeys: any) => {
+    console.log('targetKeys:', nextTargetKeys);
+    console.log('direction:', direction);
+    console.log('moveKeys:', moveKeys);
+    setTargetKeys(nextTargetKeys);
+  };
+
+  const onSelectChange = (sourceSelectedKeys: any, targetSelectedKeys: any) => {
+    console.log('sourceSelectedKeys:', sourceSelectedKeys);
+    console.log('targetSelectedKeys:', targetSelectedKeys);
+    setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
+  };
+
+  const onScroll = (direction: any, e: any) => {
+    console.log('direction:', direction);
+    console.log('target:', e.target);
+  };
+
+  return (
+    <Transfer
+      dataSource={mockData}
+      titles={['Source', 'Target']}
+      targetKeys={targetKeys}
+      selectedKeys={selectedKeys}
+      onChange={onChange}
+      onSelectChange={onSelectChange}
+      onScroll={onScroll}
+      render={(item) => item.title}
+    />
+  );
 }
+
 function AlertDemo() {
-  return null;
+  return (
+    <>
+      <Alert message="Success Tips" type="success" showIcon />
+      <Alert message="Informational Notes" type="info" showIcon />
+      <Alert message="Warning" type="warning" showIcon closable />
+      <Alert message="Error" type="error" showIcon />
+      <Alert
+        message="Success Tips"
+        description="Detailed description and advice about successful copywriting."
+        type="success"
+        showIcon
+      />
+      <Alert
+        message="Informational Notes"
+        description="Additional description and information about copywriting."
+        type="info"
+        showIcon
+      />
+      <Alert
+        message="Warning"
+        description="This is a warning notice about copywriting."
+        type="warning"
+        showIcon
+        closable
+      />
+      <Alert message="Error" description="This is an error message about copywriting." type="error" showIcon />
+    </>
+  );
 }
+
 function ListDemo() {
-  return null;
+  const data = [
+    {
+      title: 'Ant Design Title 1',
+    },
+    {
+      title: 'Ant Design Title 2',
+    },
+    {
+      title: 'Ant Design Title 3',
+    },
+    {
+      title: 'Ant Design Title 4',
+    },
+  ];
+  return (
+    <List
+      itemLayout="horizontal"
+      dataSource={data}
+      renderItem={(item) => (
+        <List.Item>
+          <List.Item.Meta
+            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+            title={<a href="https://ant.design">{item.title}</a>}
+            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+          />
+        </List.Item>
+      )}
+    />
+  );
 }
+
 function StatisticDemo() {
-  return null;
+  return (
+    <Row gutter={16}>
+      <Col span={12}>
+        <Statistic title="Feedback" value={1128} prefix={<LikeOutlined />} />
+      </Col>
+      <Col span={12}>
+        <Statistic title="Unmerged" value={93} suffix="/ 100" />
+      </Col>
+    </Row>
+  );
 }
+
 function DrawerDemo() {
-  return null;
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  return (
+    <>
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <Drawer title="Basic Drawer" placement="right" onClose={onClose} visible={visible}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+    </>
+  );
 }
+
 function TimelineDemo() {
-  return null;
+  return (
+    <Timeline>
+      <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+      <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+      <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
+      <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+    </Timeline>
+  );
 }
+
 function TypographyDemo() {
-  return null;
+  return (
+    <Typography>
+      <Title>Introduction</Title>
+      <Paragraph>
+        In the process of internal desktop applications development, many different design specs and implementations
+        would be involved, which might cause designers and developers difficulties and duplication and reduce the
+        efficiency of development.
+      </Paragraph>
+      <Paragraph>
+        After massive project practice and summaries, Ant Design, a design language for background applications, is
+        refined by Ant UED Team, which aims to
+        <Text strong>
+          uniform the user interface specs for internal background projects, lower the unnecessary cost of design
+          differences and implementation and liberate the resources of design and front-end development
+        </Text>
+        .
+      </Paragraph>
+    </Typography>
+  );
 }
+
 function StepsDemo() {
-  return null;
+  return (
+    <Space direction="vertical" size="large">
+      <Steps current={1}>
+        <Step title="Finished" description="This is a description." />
+        <Step title="In Progress" subTitle="Left 00:00:08" description="This is a description." />
+        <Step title="Waiting" description="This is a description." />
+      </Steps>
+      <Steps size="small" current={1}>
+        <Step title="Finished" />
+        <Step title="In Progress" />
+        <Step title="Waiting" />
+      </Steps>
+      <Steps direction="vertical" current={1}>
+        <Step title="Finished" description="This is a description." />
+        <Step title="In Progress" description="This is a description." />
+        <Step title="Waiting" description="This is a description." />
+      </Steps>
+    </Space>
+  );
 }
+
+const openNotification = () => {
+  notification.open({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    onClick: () => {
+      console.log('Notification Clicked!');
+    },
+  });
+};
+
 function NotificationDemo() {
-  return null;
+  return (
+    <Button type="primary" onClick={openNotification}>
+      Open the notification box
+    </Button>
+  );
 }
+
 function ResultDemo() {
-  return null;
+  return (
+    <Result
+      status="success"
+      title="Successfully Purchased Cloud Server ECS!"
+      subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+      extra={[
+        <Button type="primary" key="console">
+          Go Console
+        </Button>,
+        <Button key="buy">Buy Again</Button>,
+      ]}
+    />
+  );
 }
+
 function ImageDemo() {
-  return null;
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Image
+        preview={{ visible: false }}
+        width={200}
+        src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+        onClick={() => setVisible(true)}
+      />
+      <div style={{ display: 'none' }}>
+        <Image.PreviewGroup preview={{ visible, onVisibleChange: (vis) => setVisible(vis) }}>
+          <Image src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp" />
+          <Image src="https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp" />
+          <Image src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" />
+        </Image.PreviewGroup>
+      </div>
+    </>
+  );
 }
 
 const AllComs = [
@@ -1149,7 +1586,7 @@ const AllComs = [
   },
 ];
 
-export default function Components({ filter = '' }) {
+export default function Components({ filter = '' }: { filter: string }) {
   return (
     <div>
       {AllComs.map(({ title, link, content: Content }) => (
