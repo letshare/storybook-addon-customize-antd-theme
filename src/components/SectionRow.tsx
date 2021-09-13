@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { transparentize } from 'polished'
-import { styled } from '@storybook/theming'
-import { Icons } from '@storybook/components'
+import React, { useState } from 'react';
+import { transparentize } from 'polished';
+import { styled } from '@storybook/theming';
+import { Icons } from '@storybook/components';
 
 type Level = 'section' | 'subsection';
 
@@ -24,14 +24,14 @@ const ExpanderIcon = styled(Icons)(({ theme }) => ({
       ? transparentize(0.25, theme.color.defaultText)
       : transparentize(0.3, theme.color.defaultText),
   border: 'none',
-  display: 'inline-block'
-}))
+  display: 'inline-block',
+}));
 
 const FlexWrapper = styled.span<{}>(({ theme }) => ({
   display: 'flex',
   lineHeight: '20px',
-  alignItems: 'center'
-}))
+  alignItems: 'center',
+}));
 
 const Section = styled.td<{}>(({ theme }) => ({
   position: 'relative',
@@ -45,28 +45,28 @@ const Section = styled.td<{}>(({ theme }) => ({
       : transparentize(0.6, theme.color.defaultText),
   background: `${theme.background.app} !important`,
   '& ~ td': {
-    background: `${theme.background.app} !important`
-  }
-}))
+    background: `${theme.background.app} !important`,
+  },
+}));
 
 const Subsection = styled.td<{}>(({ theme }) => ({
   position: 'relative',
   fontWeight: theme.typography.weight.bold,
   fontSize: theme.typography.size.s2 - 1,
-  background: theme.background.content
-}))
+  background: theme.background.content,
+}));
 
 const StyledTd = styled.td<{}>(({ theme }) => ({
-  position: 'relative'
-}))
+  position: 'relative',
+}));
 
 const StyledTr = styled.tr<{}>(({ theme }) => ({
   '&:hover > td': {
     backgroundColor: `${theme.background.hoverable} !important`,
     boxShadow: `${theme.color.mediumlight} 0 - 1px 0 0 inset`,
-    cursor: 'row-resize'
-  }
-}))
+    cursor: 'row-resize',
+  },
+}));
 
 const ClickIntercept = styled.button<{}>(() => ({
   // reset button style
@@ -84,25 +84,25 @@ const ClickIntercept = styled.button<{}>(() => ({
   height: '100%',
   width: '100%',
   color: 'transparent',
-  cursor: 'row-resize !important'
-}))
+  cursor: 'row-resize !important',
+}));
 
-export default function SectionRow ({
+export default function SectionRow({
   level = 'section',
   label,
   children,
   initialExpanded = true,
-  colSpan = 3
+  colSpan = 3,
 }: SectionRowProps) {
-  const [expanded, setExpanded] = useState(initialExpanded)
-  const Level = level === 'subsection' ? Subsection : Section
-  const itemCount = (children as React.ReactNodeArray)?.length || 0
-  const caption = level === 'subsection' ? `${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''
-  const icon = expanded ? 'arrowdown' : 'arrowright'
+  const [expanded, setExpanded] = useState(initialExpanded);
+  const Level = level === 'subsection' ? Subsection : Section;
+  const itemCount = (children as React.ReactNodeArray)?.length || 0;
+  const caption = level === 'subsection' ? `${itemCount} item${itemCount !== 1 ? 's' : ''}` : '';
+  const icon = expanded ? 'arrowdown' : 'arrowright';
 
-  const helperText = `${expanded ? 'Hide' : 'Side'} ${
-    level === 'subsection' ? itemCount : label
-  } item${itemCount !== 1 ? 's' : ''}`
+  const helperText = `${expanded ? 'Hide' : 'Side'} ${level === 'subsection' ? itemCount : label} item${
+    itemCount !== 1 ? 's' : ''
+  }`;
 
   return (
     <>
@@ -117,11 +117,7 @@ export default function SectionRow ({
           </FlexWrapper>
         </Level>
         <StyledTd colSpan={colSpan - 1}>
-          <ClickIntercept
-            onClick={(e) => setExpanded(!expanded)}
-            tabIndex={-1}
-            style={{ outline: 'none' }}
-          >
+          <ClickIntercept onClick={(e) => setExpanded(!expanded)} tabIndex={-1} style={{ outline: 'none' }}>
             {helperText}
           </ClickIntercept>
           {expanded ? null : caption}
@@ -129,5 +125,5 @@ export default function SectionRow ({
       </StyledTr>
       {expanded ? children : null}
     </>
-  )
+  );
 }

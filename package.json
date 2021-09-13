@@ -109,6 +109,8 @@
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   },
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
     "antd": "^4.16.10",
     "jsondiffpatch": "^0.4.1",
     "lodash": "^4.17.21",

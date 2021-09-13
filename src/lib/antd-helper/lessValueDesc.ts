@@ -5,8 +5,7 @@ export default {
   'primary-4': 'unused',
   'primary-5':
     'color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)',
-  'primary-6':
-    "color used to control the text color of active buttons, don't use, use @primary-color",
+  'primary-6': "color used to control the text color of active buttons, don't use, use @primary-color",
   'primary-7': 'replace shade(@primary-color, 5%)',
   'primary-8': 'unused',
   'primary-9': 'unused',
@@ -30,6 +29,5 @@ export default {
   'animation-duration-slow': 'Modal',
   'animation-duration-fast': 'Tooltip',
   'select-multiple-item-height': 'Normal 24px',
-  'progress-text-color':
-    'This is for circle text color, should be renamed better',
-}
+  'progress-text-color': 'This is for circle text color, should be renamed better',
+};

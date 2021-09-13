@@ -1,7 +1,7 @@
-import { camelCase, upperFirst } from 'lodash'
-import { CONTROL_DATA_TYPE } from '../../constants'
-import { ArgTypes } from '../../interface'
-import descMap from '../antd-helper/lessValueDesc'
+import { camelCase, upperFirst } from 'lodash';
+import { CONTROL_DATA_TYPE } from '../../constants';
+import { ArgTypes } from '../../interface';
+import descMap from '../antd-helper/lessValueDesc';
 
 const modules = [
   'link',
@@ -62,89 +62,96 @@ const modules = [
   'steps',
   'notification',
   'result',
-  'image'
-]
+  'image',
+];
 
-const moduleReg = new RegExp(`^(${modules.join('|')})`)
+const moduleReg = new RegExp(`^(${modules.join('|')})`);
 
-const alias: {[key: string]:any} = {
+const alias: { [key: string]: any } = {
   ease: 'Animation',
   'box-shadow-base': 'Shadow',
   btn: 'Buttons',
   'label-required-color': 'Form',
   'label-color': 'Form',
-  'process-tail-color': 'Steps'
-}
+  'process-tail-color': 'Steps',
+};
 
-const aliasReg = new RegExp(`^(${Object.keys(alias).join('|')})`)
+const aliasReg = new RegExp(`^(${Object.keys(alias).join('|')})`);
 
-const colorReg = /^(rgb\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?\))$|^(rgba\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\))$|^(transparent)$|^(#([a-fA-F0-9]){3})$|^(#([a-fA-F0-9]){6}$)|(^hsl\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?\)$)|(^hsla\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\)$)$/
+const colorReg =
+  /^(rgb\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?\))$|^(rgba\s*?\(\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(000|0?\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\))$|^(transparent)$|^(#([a-fA-F0-9]){3})$|^(#([a-fA-F0-9]){6}$)|(^hsl\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?\)$)|(^hsla\s*?\(\s*?(000|0?\d{1,2}|[1-2]\d\d|3[0-5]\d|360)\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(000|100|0?\d{2}|0?0?\d)%\s*?,\s*?(0|0\.\d*|1|1.0*)\s*?\)$)$/;
 
 // 由plain对象生成control args
 export class LessArgGenerator {
-  vars: {[key: string]:any}
-  hints: ArgTypes = {}
-  args: {[key: string]:any} = {}
-  constructor (vars: {}) {
-    this.vars = vars
-    this.copyToHints()
-    this.analyseVars()
+  vars: { [key: string]: any };
+  hints: ArgTypes = {};
+  args: { [key: string]: any } = {};
+  constructor(vars: {}) {
+    this.vars = vars;
+    this.copyToHints();
+    this.analyseVars();
   }
 
-  copyToHints () {
+  copyToHints() {
     for (const [key, value] of Object.entries(this.vars)) {
-      this.hints[key] = { name: key, value }
+      this.hints[key] = { name: key, value };
     }
   }
 
   // 名字匹配器解析出分类，值匹配器解决出类型
-  analyseVars () {
-    const handlers: Array<(key: string, value: any)=>void> = []
-    function use (handler:(key: string, value: any)=>void) {
-      handlers.push(handler)
+  analyseVars() {
+    const handlers: Array<(key: string, value: any) => void> = [];
+    function use(handler: (key: string, value: any) => void) {
+      handlers.push(handler);
     }
 
     use((key) => {
-      const m = key.match(aliasReg)
+      const m = key.match(aliasReg);
       if (m) {
-        this.hints[key].category = alias[m[1]]
+        this.hints[key].category = alias[m[1]];
       }
-    })
+    });
 
     use((key) => {
-      const m = key.match(moduleReg)
+      const m = key.match(moduleReg);
       if (m) {
-        const subject = upperFirst(camelCase(m[1]))
-        this.hints[key].category = subject
+        const subject = upperFirst(camelCase(m[1]));
+        this.hints[key].category = subject;
       }
-    })
+    });
 
     use((key, value) => {
-      const m = value.match(colorReg)
+      const m = value.match(colorReg);
       if (m) {
-        this.hints[key].type = 'color'
+        this.hints[key].type = 'color';
       } else {
-        this.hints[key].type = 'text'
+        this.hints[key].type = 'text';
       }
-    })
+    });
 
     use((key, value) => {
-      this.hints[key].desc = (descMap as {[key: string]:any})[key]
-      this.hints[key].category = this.hints[key].category || 'Global'
-    })
+      this.hints[key].desc = (descMap as { [key: string]: any })[key];
+      this.hints[key].category = this.hints[key].category || 'Global';
+    });
 
     for (const [key, value] of Object.entries(this.vars)) {
       for (const fn of handlers) {
-        fn(key, value)
+        fn(key, value);
       }
     }
 
     for (const [key, value] of Object.entries(this.hints)) {
-      this.args[key] = this.createArg(key, value.type, value.value, (descMap as {[key: string]:any})[key], value.category)
+      this.args[key] = this.createArg(
+        key,
+        value.type,
+        value.value,
+        (descMap as { [key: string]: any })[key],
+        value.category
+      );
     }
   }
 
-  createArg (name:string, controlType: string, defaultValue: any, description = '', category = 'Global') {
+  createArg(name: string, controlType: string, defaultValue: any, description = '', category = 'Global') {
     return {
       name,
       type: { name: CONTROL_DATA_TYPE[controlType], required: false },
@@ -153,11 +160,11 @@ export class LessArgGenerator {
       table: {
         type: { summary: CONTROL_DATA_TYPE[controlType] },
         defaultValue: { summary: defaultValue },
-        subcategory: category
+        subcategory: category,
       },
       control: {
-        type: controlType
-      }
-    }
+        type: controlType,
+      },
+    };
   }
 }

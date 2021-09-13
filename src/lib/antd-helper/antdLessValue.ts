@@ -28,8 +28,7 @@ export default {
   'popover-customize-border-color': '#f0f0f0',
   'font-family':
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
-  'code-family':
-    "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+  'code-family': "'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
   'text-color': 'rgba(0, 0, 0, 0.85)',
   'text-color-secondary': 'rgba(0, 0, 0, 0.45)',
   'text-color-inverse': '#fff',
@@ -745,4 +744,4 @@ export default {
   'image-preview-operation-size': '18px',
   'image-preview-operation-color': 'rgba(255, 255, 255, 0.85)',
   'image-preview-operation-disabled-color': 'rgba(255, 255, 255, 0.25)',
-}
+};

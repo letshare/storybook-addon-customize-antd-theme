@@ -1365,11 +1365,6 @@ const AllComs = [
     content: RadioDemo,
   },
   {
-    title: 'Dropdown',
-    link: 'https://ant.design/components/dropdown-cn/',
-    content: DropdownDemo,
-  },
-  {
     title: 'Layout',
     link: 'https://ant.design/components/layout-cn/',
     content: LayoutDemo,

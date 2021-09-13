@@ -1,9 +1,9 @@
-import React from 'react'
-import Markdown from 'markdown-to-jsx'
-import { styled, CSSObject, Theme } from '@storybook/theming'
-import { transparentize } from 'polished'
-import { ArgType, Args } from '../interface'
-import ArgControl from './ArgControl'
+import React from 'react';
+import Markdown from 'markdown-to-jsx';
+import { styled, CSSObject, Theme } from '@storybook/theming';
+import { transparentize } from 'polished';
+import { ArgType, Args } from '../interface';
+import ArgControl from './ArgControl';
 
 const codeCommon = ({ theme }: { theme: Theme }): CSSObject => ({
   lineHeight: 1,
@@ -14,36 +14,33 @@ const codeCommon = ({ theme }: { theme: Theme }): CSSObject => ({
   borderRadius: 3,
   fontSize: theme.typography.size.s2 - 1,
 
-  border:
-    theme.base === 'light'
-      ? `1px solid ${theme.color.mediumlight}`
-      : `1px solid ${theme.color.darker}`,
+  border: theme.base === 'light' ? `1px solid ${theme.color.mediumlight}` : `1px solid ${theme.color.darker}`,
   color:
     theme.base === 'light'
       ? transparentize(0.1, theme.color.defaultText)
       : transparentize(0.3, theme.color.defaultText),
-  backgroundColor: theme.base === 'light' ? theme.color.lighter : theme.color.border
-})
+  backgroundColor: theme.base === 'light' ? theme.color.lighter : theme.color.border,
+});
 
-const Name = styled.span({ fontWeight: 'bold' })
+const Name = styled.span({ fontWeight: 'bold' });
 
 const Description = styled.div(({ theme }) => ({
   '&&': {
     p: {
-      margin: '0 0 10px 0'
+      margin: '0 0 10px 0',
     },
     a: {
-      color: theme.color.secondary
-    }
+      color: theme.color.secondary,
+    },
   },
 
   code: codeCommon({ theme }),
 
   '& code': {
     margin: 0,
-    display: 'inline-block'
-  }
-}))
+    display: 'inline-block',
+  },
+}));
 
 const Text = styled.span<{ simple?: boolean }>(codeCommon, ({ theme, simple = false }) => ({
   flex: '0 0 auto',
@@ -61,13 +58,13 @@ const Text = styled.span<{ simple?: boolean }>(codeCommon, ({ theme, simple = fa
   ...(simple && {
     background: 'transparent',
     border: '0 none',
-    paddingLeft: 0
-  })
-}))
+    paddingLeft: 0,
+  }),
+}));
 
 const StyledTd = styled.td<{ expandable: boolean }>(({ theme, expandable }) => ({
-  paddingLeft: expandable ? '40px !important' : '20px !important'
-}))
+  paddingLeft: expandable ? '40px !important' : '20px !important',
+}));
 
 export interface ArgRowProps {
   row: ArgType;
@@ -76,9 +73,9 @@ export interface ArgRowProps {
   expandable?: boolean;
 }
 
-export default function ArgRow ({ row, arg, updateArgs, expandable }: ArgRowProps) {
-  const { name, desc, value, type } = row
-  const hasDescription = desc != null && desc !== ''
+export default function ArgRow({ row, arg, updateArgs, expandable }: ArgRowProps) {
+  const { name, desc, value, type } = row;
+  const hasDescription = desc != null && desc !== '';
 
   return (
     <tr>
@@ -95,13 +92,11 @@ export default function ArgRow ({ row, arg, updateArgs, expandable }: ArgRowProp
       <td>
         <Text>{value}</Text>
       </td>
-      {updateArgs
-        ? (
+      {updateArgs ? (
         <td>
-          <ArgControl control={{ key: name, type }} arg={arg} updateArgs={updateArgs}/>
+          <ArgControl control={{ key: name, type }} arg={arg} updateArgs={updateArgs} />
         </td>
-          )
-        : null}
+      ) : null}
     </tr>
-  )
+  );
 }

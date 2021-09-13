@@ -1,7 +1,7 @@
-import { addons, types } from '@storybook/addons'
+import { addons, types } from '@storybook/addons';
 
-import { ADDON_ID, PANEL_ID } from '../constants'
-import { Panel } from '../Panel'
+import { ADDON_ID, PANEL_ID } from '../constants';
+import { Panel } from '../Panel';
 
 // Register the addon
 addons.register(ADDON_ID, () => {
@@ -10,9 +10,9 @@ addons.register(ADDON_ID, () => {
     type: types.PANEL,
     title: 'Modify Antd Theme',
     match: ({ viewMode }) => {
-      console.log('viewMode', viewMode)
-      return viewMode === 'story'
+      console.log('viewMode', viewMode);
+      return viewMode === 'story';
     },
-    render: Panel
-  })
-})
+    render: Panel,
+  });
+});
