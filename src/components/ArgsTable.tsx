@@ -211,6 +211,7 @@ export default function ArgsTable({ rows, args, updateArgs, resetArgs }: ArgsTab
   const groups = groupRows(rows);
   const expandable = Object.keys(groups.sections).length > 0;
   const colSpan = 4;
+  const initialExpanded = Object.keys(rows).length < 40; // item number less then 40 expanded
   return (
     <TableWrapper className="docblock-argstable">
       <thead className="docblock-argstable-head">
@@ -227,7 +228,13 @@ export default function ArgsTable({ rows, args, updateArgs, resetArgs }: ArgsTab
         ))}
 
         {Object.entries(groups.sections).map(([category, section]) => (
-          <SectionRow key={category} label={category} level="subsection" colSpan={colSpan} initialExpanded={false}>
+          <SectionRow
+            key={category}
+            label={category}
+            level="subsection"
+            colSpan={colSpan}
+            initialExpanded={initialExpanded}
+          >
             {section.ungrouped.map((row) => (
               <ArgRow
                 key={row.key}

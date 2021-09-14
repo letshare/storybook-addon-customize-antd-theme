@@ -6,3 +6,4 @@ declare module '!!file-loader?modules!../assets/less/custom.less';
 interface Window {
   less: any;
 }
+declare module 'trie-search';

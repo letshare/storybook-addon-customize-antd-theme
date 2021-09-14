@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TrieSearch from 'trie-search';
 import {
   Row,
   Col,
@@ -56,6 +57,7 @@ import {
   notification,
   Result,
   Image,
+  Affix,
 } from 'antd';
 import {
   DownloadOutlined,
@@ -83,6 +85,7 @@ const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Title, Paragraph, Text } = Typography;
 const { Step } = Steps;
+const { Search } = Input;
 
 function PopoverDemo() {
   const content = (
@@ -1326,43 +1329,14 @@ function ImageDemo() {
 
 const AllComs = [
   {
-    title: 'Popover',
-    link: 'https://ant.design/components/popover-cn/',
-    content: PopoverDemo,
-  },
-  {
-    title: 'Link',
-    content: LinkDemo,
-  },
-  {
     title: 'Buttons',
     link: 'https://ant.design/components/button-cn/',
     content: ButtonsDemo,
   },
   {
-    title: 'Checkbox',
-    link: 'https://ant.design/components/checkbox-cn/',
-    content: CheckboxDemo,
-  },
-  {
-    title: 'Descriptions',
-    link: 'https://ant.design/components/descriptions-cn/',
-    content: DescriptionsDemo,
-  },
-  {
-    title: 'Dropdown',
-    link: 'https://ant.design/components/dropdown-cn/',
-    content: DropdownDemo,
-  },
-  {
-    title: 'Empty',
-    link: 'https://ant.design/components/empty-cn/',
-    content: Empty,
-  },
-  {
-    title: 'Radio',
-    link: 'https://ant.design/components/radio-cn/',
-    content: RadioDemo,
+    title: 'Typography',
+    link: 'https://ant.design/components/typography-cn/',
+    content: TypographyDemo,
   },
   {
     title: 'Layout',
@@ -1370,9 +1344,48 @@ const AllComs = [
     content: LayoutDemo,
   },
   {
-    title: 'Collapse',
-    link: 'https://ant.design/components/collapse-cn/',
-    content: CollapseDemo,
+    title: 'Breadcrumb',
+    link: 'https://ant.design/components/breadcrumb-cn/',
+    content: BreadcrumbDemo,
+  },
+  {
+    title: 'Dropdown',
+    link: 'https://ant.design/components/dropdown-cn/',
+    content: DropdownDemo,
+  },
+  {
+    title: 'Menu',
+    link: 'https://ant.design/components/menu-cn/',
+    content: MenuDemo,
+  },
+  {
+    title: 'PageHeader',
+    link: 'https://ant.design/components/page-header-cn/',
+    content: PageHeaderDemo,
+  },
+  {
+    title: 'Pagination',
+    link: 'https://ant.design/components/pagination-cn/',
+    content: PaginationDemo,
+  },
+  {
+    title: 'Steps',
+    link: 'https://ant.design/components/steps-cn/',
+    content: StepsDemo,
+  },
+  {
+    title: 'Cascader',
+    link: 'https://ant.design/components/cascader-cn/',
+    content: CascaderDemo,
+  },
+  {
+    title: 'Checkbox',
+    link: 'https://ant.design/components/checkbox-cn/',
+    content: CheckboxDemo,
+  },
+  {
+    title: 'Picker',
+    content: PickerDemo,
   },
   {
     title: 'Form',
@@ -1390,74 +1403,9 @@ const AllComs = [
     content: MentionsDemo,
   },
   {
-    title: 'Cascader',
-    link: 'https://ant.design/components/cascader-cn/',
-    content: CascaderDemo,
-  },
-  {
-    title: 'Select',
-    link: 'https://ant.design/components/select-cn/',
-    content: SelectDemo,
-  },
-  {
-    title: 'Anchor',
-    link: 'https://ant.design/components/anchor-cn/',
-    content: AnchorDemo,
-  },
-  {
-    title: 'Tooltip',
-    link: 'https://ant.design/components/tooltip-cn/',
-    content: TooltipDemo,
-  },
-  {
-    title: 'Modal',
-    link: 'https://ant.design/components/modal-cn/',
-    content: ModalDemo,
-  },
-  {
-    title: 'Progress',
-    link: 'https://ant.design/components/progress-cn/',
-    content: ProgressDemo,
-  },
-  {
-    title: 'Menu',
-    link: 'https://ant.design/components/menu-cn/',
-    content: MenuDemo,
-  },
-  {
-    title: 'Spin',
-    link: 'https://ant.design/components/spin-cn/',
-    content: SpinDemo,
-  },
-  {
-    title: 'Table',
-    link: 'https://ant.design/components/table-cn/',
-    content: TableDemo,
-  },
-  {
-    title: 'Tag',
-    link: 'https://ant.design/components/tag-cn/',
-    content: TagDemo,
-  },
-  {
-    title: 'Picker',
-    link: 'https://ant.design/components/picker-cn/',
-    content: PickerDemo,
-  },
-  {
-    title: 'Calendar',
-    link: 'https://ant.design/components/calendar-cn/',
-    content: CalendarDemo,
-  },
-  {
-    title: 'Carousel',
-    link: 'https://ant.design/components/carousel-cn/',
-    content: CarouselDemo,
-  },
-  {
-    title: 'Badge',
-    link: 'https://ant.design/components/badge-cn/',
-    content: BadgeDemo,
+    title: 'Radio',
+    link: 'https://ant.design/components/radio-cn/',
+    content: RadioDemo,
   },
   {
     title: 'Rate',
@@ -1465,49 +1413,9 @@ const AllComs = [
     content: RateDemo,
   },
   {
-    title: 'Card',
-    link: 'https://ant.design/components/card-cn/',
-    content: CardDemo,
-  },
-  {
-    title: 'Comment',
-    link: 'https://ant.design/components/comment-cn/',
-    content: CommentDemo,
-  },
-  {
-    title: 'Tabs',
-    link: 'https://ant.design/components/tabs-cn/',
-    content: TabsDemo,
-  },
-  {
-    title: 'BackTop',
-    link: 'https://ant.design/components/BackTop-cn/',
-    content: BackTopDemo,
-  },
-  {
-    title: 'Avatar',
-    link: 'https://ant.design/components/avatar-cn/',
-    content: AvatarDemo,
-  },
-  {
-    title: 'Switch',
-    link: 'https://ant.design/components/switch-cn/',
-    content: SwitchDemo,
-  },
-  {
-    title: 'Pagination',
-    link: 'https://ant.design/components/pagination-cn/',
-    content: PaginationDemo,
-  },
-  {
-    title: 'PageHeader',
-    link: 'https://ant.design/components/PageHeader-cn/',
-    content: PageHeaderDemo,
-  },
-  {
-    title: 'Breadcrumb',
-    link: 'https://ant.design/components/Breadcrumb-cn/',
-    content: BreadcrumbDemo,
+    title: 'Select',
+    link: 'https://ant.design/components/select-cn/',
+    content: SelectDemo,
   },
   {
     title: 'Slider',
@@ -1515,14 +1423,9 @@ const AllComs = [
     content: SliderDemo,
   },
   {
-    title: 'Tree',
-    link: 'https://ant.design/components/tree-cn/',
-    content: TreeDemo,
-  },
-  {
-    title: 'Skeleton',
-    link: 'https://ant.design/components/skeleton-cn/',
-    content: SkeletonDemo,
+    title: 'Switch',
+    link: 'https://ant.design/components/switch-cn/',
+    content: SwitchDemo,
   },
   {
     title: 'Transfer',
@@ -1530,9 +1433,54 @@ const AllComs = [
     content: TransferDemo,
   },
   {
-    title: 'Alert',
-    link: 'https://ant.design/components/alert-cn/',
-    content: AlertDemo,
+    title: 'Anchor',
+    link: 'https://ant.design/components/anchor-cn/',
+    content: AnchorDemo,
+  },
+  {
+    title: 'Badge',
+    link: 'https://ant.design/components/badge-cn/',
+    content: BadgeDemo,
+  },
+  {
+    title: 'Calendar',
+    link: 'https://ant.design/components/calendar-cn/',
+    content: CalendarDemo,
+  },
+  {
+    title: 'Card',
+    link: 'https://ant.design/components/card-cn/',
+    content: CardDemo,
+  },
+  {
+    title: 'Carousel',
+    link: 'https://ant.design/components/carousel-cn/',
+    content: CarouselDemo,
+  },
+  {
+    title: 'Collapse',
+    link: 'https://ant.design/components/collapse-cn/',
+    content: CollapseDemo,
+  },
+  {
+    title: 'Comment',
+    link: 'https://ant.design/components/comment-cn/',
+    content: CommentDemo,
+  },
+  {
+    title: 'Descriptions',
+    link: 'https://ant.design/components/descriptions-cn/',
+    content: DescriptionsDemo,
+  },
+  {
+    title: 'Empty',
+    link: 'https://ant.design/components/empty-cn/',
+    content: Empty,
+  },
+  {
+    title: 'Image',
+    link: 'https://ant.design/components/image-cn/',
+    content: ImageDemo,
   },
   {
     title: 'List',
@@ -1540,14 +1488,33 @@ const AllComs = [
     content: ListDemo,
   },
   {
+    title: 'Link',
+    content: LinkDemo,
+  },
+  {
+    title: 'Popover',
+    link: 'https://ant.design/components/popover-cn/',
+    content: PopoverDemo,
+  },
+  {
     title: 'Statistic',
     link: 'https://ant.design/components/statistic-cn/',
     content: StatisticDemo,
   },
   {
-    title: 'Drawer',
-    link: 'https://ant.design/components/drawer-cn/',
-    content: DrawerDemo,
+    title: 'Table',
+    link: 'https://ant.design/components/table-cn/',
+    content: TableDemo,
+  },
+  {
+    title: 'Tabs',
+    link: 'https://ant.design/components/tabs-cn/',
+    content: TabsDemo,
+  },
+  {
+    title: 'Tag',
+    link: 'https://ant.design/components/tag-cn/',
+    content: TagDemo,
   },
   {
     title: 'Timeline',
@@ -1555,14 +1522,29 @@ const AllComs = [
     content: TimelineDemo,
   },
   {
-    title: 'Typography',
-    link: 'https://ant.design/components/typography-cn/',
-    content: TypographyDemo,
+    title: 'Tooltip',
+    link: 'https://ant.design/components/tooltip-cn/',
+    content: TooltipDemo,
   },
   {
-    title: 'Steps',
-    link: 'https://ant.design/components/steps-cn/',
-    content: StepsDemo,
+    title: 'Tree',
+    link: 'https://ant.design/components/tree-cn/',
+    content: TreeDemo,
+  },
+  {
+    title: 'Alert',
+    link: 'https://ant.design/components/alert-cn/',
+    content: AlertDemo,
+  },
+  {
+    title: 'Drawer',
+    link: 'https://ant.design/components/drawer-cn/',
+    content: DrawerDemo,
+  },
+  {
+    title: 'Modal',
+    link: 'https://ant.design/components/modal-cn/',
+    content: ModalDemo,
   },
   {
     title: 'Notification',
@@ -1570,21 +1552,64 @@ const AllComs = [
     content: NotificationDemo,
   },
   {
+    title: 'Progress',
+    link: 'https://ant.design/components/progress-cn/',
+    content: ProgressDemo,
+  },
+  {
     title: 'Result',
     link: 'https://ant.design/components/result-cn/',
     content: ResultDemo,
   },
   {
-    title: 'Image',
-    link: 'https://ant.design/components/image-cn/',
-    content: ImageDemo,
+    title: 'Skeleton',
+    link: 'https://ant.design/components/skeleton-cn/',
+    content: SkeletonDemo,
+  },
+  {
+    title: 'Spin',
+    link: 'https://ant.design/components/spin-cn/',
+    content: SpinDemo,
+  },
+  {
+    title: 'Avatar',
+    link: 'https://ant.design/components/avatar-cn/',
+    content: AvatarDemo,
+  },
+  {
+    title: 'BackTop',
+    link: 'https://ant.design/components/back-top-cn/',
+    content: BackTopDemo,
   },
 ];
 
 export default function Components({ filter = '' }: { filter: string }) {
+  const [filterComs, setFilterComs] = useState(AllComs);
+
+  const onSearch = (value: any) => {
+    if (!value) {
+      return setFilterComs(AllComs);
+    }
+    const trie = new TrieSearch(['title']);
+    trie.addAll(Object.values(AllComs));
+    setFilterComs(trie.search(value));
+  };
+
   return (
     <div>
-      {AllComs.map(({ title, link, content: Content }) => (
+      <Affix offsetTop={20}>
+        <Search
+          placeholder="input search text"
+          onSearch={onSearch}
+          style={{
+            width: 200,
+            marginLeft: 16,
+            boxShadow: '0 0 4px rgba(0, 0, 0, 0.12)',
+          }}
+          allowClear
+        />
+      </Affix>
+      {filterComs.map(({ title, link, content: Content }) => (
         <div key={title}>
           <Divider orientation="left">
             {link ? (

@@ -7210,6 +7210,13 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hasharray@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hasharray/-/hasharray-1.1.1.tgz#0bfadd91c0ee76919c05eeef5a3dc1034b4ea4f1"
+  integrity sha512-L+WTUz5XcfQyh3652tOEDLL5ZG6MAS+iYqM2K0N9H/z7RpW0rjlFkXLRdqbwqrGCr9korJzyfDD7i7mtwo42wg==
+  dependencies:
+    jclass "^1.0.1"
+
 hast-to-hyperscript@^9.0.0:
   version "9.0.1"
   resolved "https://registry.npmjs.org/hast-to-hyperscript/-/hast-to-hyperscript-9.0.1.tgz"
@@ -8017,6 +8024,11 @@ java-properties@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/java-properties/-/java-properties-1.0.2.tgz"
   integrity sha512-qjdpeo2yKlYTH7nFdK0vbZWuTCesk4o63v5iVOlhMQPfuIZQfW/HI35SjfhA+4qpg36rnFSvUK5b1m+ckIblQQ==
+
+jclass@^1.0.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/jclass/-/jclass-1.2.1.tgz#eaafeec0dd6a5bf8b3ea43c04e010c637638768b"
+  integrity sha1-6q/uwN1qW/iz6kPATgEMY3Y4dos=
 
 jest-haste-map@^26.6.2:
   version "26.6.2"
@@ -11829,6 +11841,13 @@ tree-kill@^1.2.2:
   version "1.2.2"
   resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
+
+trie-search@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/trie-search/-/trie-search-1.3.5.tgz#933faafe2bc663386832ff91c01c21b5473b51d9"
+  integrity sha512-I19DhTM6Gf3ZwZ8cj3o3MmKBqocXU/uI2grVMOX6tkFkCQZge0gIq09OXGXWYgDK/ThfrjP5cRI1v6jHfKei8Q==
+  dependencies:
+    hasharray "^1.1.1"
 
 trim-trailing-lines@^1.0.0:
   version "1.1.4"

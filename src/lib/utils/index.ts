@@ -65,6 +65,60 @@ const modules = [
   'image',
 ];
 
+const categoryOrder = [
+  'Buttons',
+  'Typography',
+  'Layout',
+  'Breadcrumb',
+  'Dropdown',
+  'Menu',
+  'PageHeader',
+  'Pagination',
+  'Steps',
+  'Cascader',
+  'Checkbox',
+  'Picker',
+  'Form',
+  'Input',
+  'Mentions',
+  'Radio',
+  'Rate',
+  'Select',
+  'Slider',
+  'Switch',
+  'Transfer',
+  'Anchor',
+  'Badge',
+  'Calendar',
+  'Card',
+  'Carousel',
+  'Collapse',
+  'Comment',
+  'Descriptions',
+  'Empty',
+  'Image',
+  'List',
+  'Link',
+  'Popover',
+  'Statistic',
+  'Table',
+  'Tabs',
+  'Tag',
+  'Timeline',
+  'Tooltip',
+  'Tree',
+  'Alert',
+  'Drawer',
+  'Modal',
+  'Notification',
+  'Progress',
+  'Result',
+  'Skeleton',
+  'Spin',
+  'Avatar',
+  'BackTop',
+];
+
 const moduleReg = new RegExp(`^(${modules.join('|')})`);
 
 const alias: { [key: string]: any } = {
@@ -140,6 +194,8 @@ export class LessArgGenerator {
       }
     }
 
+    this.sortCategory();
+
     for (const [key, value] of Object.entries(this.hints)) {
       this.args[key] = this.createArg(
         key,
@@ -149,6 +205,21 @@ export class LessArgGenerator {
         value.category
       );
     }
+  }
+
+  sortCategory() {
+    const allKeys = Object.keys(this.hints);
+    allKeys.sort((a, b) => {
+      a = this.hints[a].category;
+      b = this.hints[b].category;
+      if (a === b) return 0;
+      return categoryOrder.indexOf(a) - categoryOrder.indexOf(b);
+    });
+    const sortedHints = {} as any;
+    allKeys.forEach((key) => {
+      sortedHints[key] = this.hints[key];
+    });
+    this.hints = sortedHints;
   }
 
   createArg(name: string, controlType: string, defaultValue: any, description = '', category = 'Global') {
@@ -167,4 +238,8 @@ export class LessArgGenerator {
       },
     };
   }
+}
+
+export function filtered(filteredKeys: string[], raw: Record<string, any>) {
+  return filteredKeys.reduce((obj, key) => ({ ...obj, [key]: raw[key] }), {});
 }
