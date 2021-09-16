@@ -6,7 +6,14 @@ import { addons } from '@storybook/addons';
 import styled from '@emotion/styled';
 import { Input } from 'antd';
 import 'antd/dist/antd.css';
-import { EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants';
+import {
+  EVENT_CHANGE_LESS,
+  EVENT_RESET_LESS,
+  EVENT_EXPORT_LESS,
+  TRIGGER_EXPORT_LESS,
+  EVENT_EXPORT_JS,
+  TRIGGER_EXPORT_JS,
+} from '../constants';
 import { LessArgGenerator, filtered } from '../lib/utils';
 import antdLessValue from '../lib/antd-helper/antdLessValue';
 import ArgsTable from './ArgsTable';
@@ -19,6 +26,19 @@ const Tool = styled.div((props) => ({
   marginBottom: '-10px',
 }));
 
+const InputFile = styled.label((props) => ({
+  display: 'inline-block',
+  cursor: 'pointer',
+  'input[type="file"]': {
+    display: 'none',
+  },
+}));
+
+const jsExtReg = /\.js$/;
+const lineReg = /[\r\n]+/;
+const jsVarReg = /^\s*['"@]*([^'"\s:]+)['"]?\s*:\s*['"](.+)['"]\s*,?\s*/;
+const lessVarReg = /^\s*@([^\s:]+)\s*:\s*(\S.+)\s*;\s*/;
+
 export default function ControlsPanel() {
   const allLessArgs = useMemo(() => new LessArgGenerator(antdLessValue).hints, []);
   const [lessArgs, setLessArgs] = useState(allLessArgs);
@@ -27,28 +47,39 @@ export default function ControlsPanel() {
 
   const { path } = useStorybookState();
 
-  console.log('args', lessArgs, path);
+  // console.log('args', lessArgs, argsValues);
 
   const handleUpdateArgs = useCallback((...args: any[]) => {
-    console.log('handleUpdateArgs', args);
+    // console.log('handleUpdateArgs', args);
     setArgs((argsValues) => {
       return { ...argsValues, ...args[0] };
     });
-    bus.emit(EVENT_CHANGE_LESS, args);
+    bus.emit(EVENT_CHANGE_LESS, args[0]);
   }, []);
 
   useEffect(() => {
+    bus.on(EVENT_EXPORT_JS, (vars) => {
+      const a = document.createElement('a');
+      const blob = new Blob(['module.exports = ', JSON.stringify(vars, null, 2), ';']);
+      a.href = URL.createObjectURL(blob);
+      a.download = 'antd-theme.js';
+      a.click();
+    });
+
     bus.on(EVENT_EXPORT_LESS, (vars) => {
       const a = document.createElement('a');
-      const blob = new Blob([JSON.stringify(vars, null, 2)]);
+      const blob = new Blob(
+        Object.keys(vars).map((key) => {
+          return `${key}: ${vars[key]};\n`;
+        })
+      );
       a.href = URL.createObjectURL(blob);
-      a.download = 'antd-theme.json';
-      console.log('receive-less', vars);
+      a.download = 'antd-theme.less';
       a.click();
     });
   }, []);
 
-  const onSearch = (value: any) => {
+  const handleSearch = (value: any) => {
     if (!value) {
       return setLessArgs(allLessArgs);
     }
@@ -62,27 +93,69 @@ export default function ControlsPanel() {
     );
   };
 
+  const handleReset = () => {
+    setArgs({ ...antdLessValue });
+    bus.emit(EVENT_RESET_LESS, { ...antdLessValue });
+  };
+
+  const readFile = (event: any) => {
+    const fr = new FileReader();
+    fr.onload = function () {
+      // console.log(fr.result);
+      const lines = (fr.result as string).split(lineReg);
+      const isJs = jsExtReg.test(event.target.files[0].name);
+      const args: Record<string, any> = {};
+      lines.forEach((line) => {
+        const mm = line.match(isJs ? jsVarReg : lessVarReg);
+        if (mm) {
+          args[mm[1]] = mm[2];
+        }
+      });
+      setArgs((argsValues) => {
+        return { ...argsValues, ...args };
+      });
+      bus.emit(EVENT_CHANGE_LESS, args);
+    };
+
+    fr.readAsText(event.target.files[0]);
+  };
+
   return (
     <>
       <Tool>
-        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200, marginLeft: 16 }} allowClear />
+        <Search
+          placeholder="input search text"
+          onSearch={handleSearch}
+          style={{ width: 200, marginLeft: 16 }}
+          allowClear
+        />
+        <Button
+          small
+          secondary
+          onClick={() => {
+            bus.emit(TRIGGER_EXPORT_JS);
+          }}
+          style={{ marginLeft: 'auto' }}
+        >
+          export js
+        </Button>
         <Button
           small
           secondary
           onClick={() => {
             bus.emit(TRIGGER_EXPORT_LESS);
           }}
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: '8px' }}
         >
-          export json
+          export less
         </Button>
-        <Button
-          small
-          gray
-          onClick={() => {
-            console.log('重置');
-          }}
-        >
+        <Button small secondary style={{ marginLeft: '8px' }}>
+          <InputFile>
+            <input type="file" accept=".js, .less" onChange={readFile} />
+            import less
+          </InputFile>
+        </Button>
+        <Button small gray style={{ marginLeft: '8px', marginRight: '16px' }} onClick={handleReset}>
           reset
         </Button>
       </Tool>

@@ -1586,7 +1586,7 @@ const AllComs = [
 export default function Components({ filter = '' }: { filter: string }) {
   const [filterComs, setFilterComs] = useState(AllComs);
 
-  const onSearch = (value: any) => {
+  const handleSearch = (value: any) => {
     if (!value) {
       return setFilterComs(AllComs);
     }
@@ -1600,11 +1600,11 @@ export default function Components({ filter = '' }: { filter: string }) {
       <Affix offsetTop={20}>
         <Search
           placeholder="input search text"
-          onSearch={onSearch}
+          onSearch={handleSearch}
           style={{
             width: 200,
             marginLeft: 16,
-            boxShadow: '0 0 4px rgba(0, 0, 0, 0.12)',
+            boxShadow: '0 0 12px rgba(0, 0, 0, 0.22)',
           }}
           allowClear
         />

@@ -243,3 +243,7 @@ export class LessArgGenerator {
 export function filtered(filteredKeys: string[], raw: Record<string, any>) {
   return filteredKeys.reduce((obj, key) => ({ ...obj, [key]: raw[key] }), {});
 }
+
+export function generateShortId(): string {
+  return Math.random().toString(36).substr(2) + Date.now().toString(36).substr(4);
+}

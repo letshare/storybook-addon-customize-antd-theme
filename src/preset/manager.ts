@@ -10,7 +10,7 @@ addons.register(ADDON_ID, () => {
     type: types.PANEL,
     title: 'Modify Antd Theme',
     match: ({ viewMode }) => {
-      console.log('viewMode', viewMode);
+      // console.log('viewMode', viewMode);
       return viewMode === 'story';
     },
     render: Panel,

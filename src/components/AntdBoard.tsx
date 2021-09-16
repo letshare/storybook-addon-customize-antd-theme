@@ -5,7 +5,14 @@ import { addons } from '@storybook/addons';
 // import * as jsondiffpatch from 'jsondiffpatch'
 import less from '!!file-loader?modules!../assets/js/less.min.js';
 import theme from '!!file-loader?modules!../assets/less/custom.less';
-import { EVENT_CHANGE_LESS, EVENT_EXPORT_LESS, TRIGGER_EXPORT_LESS } from '../constants';
+import {
+  EVENT_CHANGE_LESS,
+  EVENT_RESET_LESS,
+  EVENT_EXPORT_LESS,
+  TRIGGER_EXPORT_LESS,
+  EVENT_EXPORT_JS,
+  TRIGGER_EXPORT_JS,
+} from '../constants';
 import Components from './Components';
 
 export default function Theme({ title }: { title: string }) {
@@ -14,11 +21,33 @@ export default function Theme({ title }: { title: string }) {
     const modifies = {};
     bus.on(EVENT_CHANGE_LESS, (args) => {
       const vars: { [key: string]: any } = {};
-      for (const [key, value] of Object.entries(args[0])) {
+      for (const [key, value] of Object.entries(args)) {
         vars[`@${key}`] = value;
       }
       Object.assign(modifies, vars);
+      // console.log('modifies', modifies);
       window.less.modifyVars(modifies);
+    });
+
+    bus.on(EVENT_RESET_LESS, (args) => {
+      const vars: { [key: string]: any } = {};
+      const allKeys = Object.keys(modifies);
+      for (const [key, value] of Object.entries(args)) {
+        if (allKeys.includes(`@${key}`)) {
+          vars[`@${key}`] = value;
+        }
+      }
+      Object.assign(modifies, vars);
+      // console.log('modifies', modifies);
+      window.less.modifyVars(modifies);
+    });
+
+    bus.on(TRIGGER_EXPORT_JS, () => {
+      const prefix = /^@/;
+      bus.emit(
+        EVENT_EXPORT_JS,
+        Object.fromEntries(Object.entries(modifies).map(([key, val]) => [key.replace(prefix, ''), val]))
+      );
     });
 
     bus.on(TRIGGER_EXPORT_LESS, () => {

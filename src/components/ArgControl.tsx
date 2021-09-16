@@ -7,10 +7,10 @@ import {
   NumberControl,
   ObjectControl,
   RangeControl,
-  TextControl,
 } from '@storybook/components';
+import TextControl from './TextControl';
 import { Args } from '../interface';
-
+import { generateShortId } from '../lib/utils';
 export interface ArgControlProps {
   control?: Args;
   arg?: any;
@@ -22,29 +22,60 @@ const NoControl = () => <>-</>;
 export default function ArgControl({ control, arg, updateArgs }: ArgControlProps) {
   const [isFocused, setFocused] = useState(false);
   const { key, disable } = control;
+  const [id, setId] = useState(() => generateShortId()); // ColorControl在arg更新的时候不会重渲染，所以这里使用了key
   // box because arg can be a fn (e.g. actions) and useState calls fn's
   const [boxedValue, setBoxedValue] = useState({ value: arg });
 
   useEffect(() => {
-    if (!isFocused) setBoxedValue({ value: arg });
+    if (!isFocused)
+      setBoxedValue((old) => {
+        if (old.value !== arg) {
+          setId(generateShortId());
+        }
+        return { value: arg };
+      });
   }, [isFocused, arg]);
 
   const onChange = useCallback(
     (argVal: any) => {
-      setBoxedValue({ value: argVal });
       updateArgs({ [key]: argVal });
+      setBoxedValue({ value: argVal });
       return argVal;
     },
     [updateArgs, key]
   );
 
-  const onBlur = useCallback(() => setFocused(false), []);
+  const noUpdateArgChange = useCallback((argVal: any) => {
+    setBoxedValue({ value: argVal });
+    return argVal;
+  }, []);
+
+  const handleSave = useCallback(
+    (value) => {
+      updateArgs({ [key]: value });
+    },
+    [updateArgs, key]
+  );
+
+  const onBlur = useCallback(() => {
+    setFocused(false);
+  }, []);
   const onFocus = useCallback(() => setFocused(true), []);
 
   if (!control || disable) return <NoControl />;
   // row.name is a display name and not a suitable DOM input id or name - i might contain whitespace etc.
   // row.key is a hash key and therefore a much safer choice
   const props = { name: key, value: boxedValue.value, onChange, onBlur, onFocus } as any;
+  const textProps = {
+    name: key,
+    value: boxedValue.value,
+    onChange: noUpdateArgChange,
+    onBlur,
+    onFocus,
+    onSave: handleSave,
+  } as any;
+
+  // console.log('ArgControl', arg);
   switch (control.type) {
     case 'array':
     case 'object':
@@ -52,7 +83,7 @@ export default function ArgControl({ control, arg, updateArgs }: ArgControlProps
     case 'boolean':
       return <BooleanControl {...props} {...control} />;
     case 'color':
-      return <ColorControl {...props} {...control} />;
+      return <ColorControl {...props} {...control} key={id} />;
     case 'date':
       return <DateControl {...props} {...control} />;
     case 'number':
@@ -65,7 +96,7 @@ export default function ArgControl({ control, arg, updateArgs }: ArgControlProps
     case 'range':
       return <RangeControl {...props} {...control} />;
     case 'text':
-      return <TextControl {...props} {...control} />;
+      return <TextControl {...textProps} {...control} />;
     case 'file':
       return <FilesControl {...props} {...control} />;
     default:
