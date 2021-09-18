@@ -3,11 +3,11 @@ const path = require('path');
 
 // Addon entry point
 function config(entry = []) {
-  return [...entry, require.resolve('./dist/esm/preset/preview')];
+  return [...entry, require.resolve('./esm/preset/preview')];
 }
 
 function managerEntries(entry = []) {
-  return [...entry, require.resolve('./dist/esm/preset/manager')];
+  return [...entry, require.resolve('./esm/preset/manager')];
 }
 
 module.exports = {

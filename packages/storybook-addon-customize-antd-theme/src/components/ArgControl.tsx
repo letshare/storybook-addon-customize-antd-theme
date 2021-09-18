@@ -10,7 +10,7 @@ import {
 } from '@storybook/components';
 import TextControl from './TextControl';
 import { Args } from '../interface';
-import { generateShortId } from '../lib/utils';
+import { uniqueId } from 'lodash';
 export interface ArgControlProps {
   control?: Args;
   arg?: any;
@@ -22,7 +22,7 @@ const NoControl = () => <>-</>;
 export default function ArgControl({ control, arg, updateArgs }: ArgControlProps) {
   const [isFocused, setFocused] = useState(false);
   const { key, disable } = control;
-  const [id, setId] = useState(() => generateShortId()); // ColorControl在arg更新的时候不会重渲染，所以这里使用了key
+  const [id, setId] = useState(() => uniqueId()); // ColorControl在arg更新的时候不会重渲染，所以这里使用了key
   // box because arg can be a fn (e.g. actions) and useState calls fn's
   const [boxedValue, setBoxedValue] = useState({ value: arg });
 
@@ -30,7 +30,7 @@ export default function ArgControl({ control, arg, updateArgs }: ArgControlProps
     if (!isFocused)
       setBoxedValue((old) => {
         if (old.value !== arg) {
-          setId(generateShortId());
+          setId(uniqueId());
         }
         return { value: arg };
       });

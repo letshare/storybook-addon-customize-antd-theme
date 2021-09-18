@@ -1,7 +1,4 @@
-dist/
-node_modules/
-storybook-static/
-build-storybook.log
+node_modules
+*.log
 .DS_Store
-.env
 .vscode

@@ -1,8 +1,6 @@
-/* eslint-disable import/no-webpack-loader-syntax */
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { addons } from '@storybook/addons';
-// import * as jsondiffpatch from 'jsondiffpatch'
 import less from '!!file-loader?modules!../assets/js/less.min.js';
 import theme from '!!file-loader?modules!../assets/less/custom.less';
 import {

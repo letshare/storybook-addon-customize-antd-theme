@@ -4,6 +4,7 @@ import TrieSearch from 'trie-search';
 import { Button } from '@storybook/components';
 import { addons } from '@storybook/addons';
 import styled from '@emotion/styled';
+import { pick } from 'lodash';
 import { Input } from 'antd';
 import 'antd/dist/antd.css';
 import {
@@ -14,7 +15,7 @@ import {
   EVENT_EXPORT_JS,
   TRIGGER_EXPORT_JS,
 } from '../constants';
-import { LessArgGenerator, filtered } from '../lib/utils';
+import { LessArgGenerator } from '../lib/utils';
 import antdLessValue from '../lib/antd-helper/antdLessValue';
 import ArgsTable from './ArgsTable';
 
@@ -86,9 +87,9 @@ export default function ControlsPanel() {
     const trie = new TrieSearch(['name', 'desc', 'category']);
     trie.addAll(Object.values(allLessArgs));
     setLessArgs(
-      filtered(
-        trie.search(value).map((arg: any) => arg.name),
-        allLessArgs
+      pick(
+        allLessArgs,
+        trie.search(value).map((arg: any) => arg.name)
       )
     );
   };

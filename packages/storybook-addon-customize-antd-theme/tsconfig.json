@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "incremental": false,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext", "dom", "DOM.Iterable"],
     "module": "ESNext",
     "noImplicitAny": true,
-    "rootDir": "./src",
     "skipLibCheck": true,
     "target": "esnext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "removeComments": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "esm", "cjs"]
 }

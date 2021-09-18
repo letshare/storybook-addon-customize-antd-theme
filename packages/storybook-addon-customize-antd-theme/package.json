@@ -1,0 +1,95 @@
+{
+  "name": "storybook-addon-customize-antd-theme",
+  "version": "0.0.0",
+  "description": "a Storybook addon help you quickly customize an ant design theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/letshare/storybook-addon-customize-antd-theme"
+  },
+  "author": "ludun.cai@shopee.com",
+  "license": "MIT",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "files": [
+    "esm",
+    "cjs",
+    "preset.js"
+  ],
+  "scripts": {
+    "predev": "zx scripts/derive-antd.mjs",
+    "clean": "rimraf ./cjs ./esm",
+    "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
+    "buildBabel:cjs": "babel ./src -d ./cjs --ignore \"src/assets/**/*\" --copy-files --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildBabel:esm": "babel ./src -d ./esm --ignore \"src/assets/**/*\" --copy-files --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildTsc": "tsc --declaration --emitDeclarationOnly",
+    "build": "concurrently \"yarn buildBabel\" \"yarn buildTsc\"",
+    "start": "concurrently \"yarn buildBabel:esm -- --watch\" \"yarn buildTsc -- --watch\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "lodash": "^4.17.21",
+    "react-helmet": "^6.1.0",
+    "trie-search": "^1.3.5",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.12.5",
+    "@babel/preset-typescript": "^7.13.0",
+    "@storybook/addons": "^6.3.6",
+    "@storybook/api": "^6.3.6",
+    "@storybook/components": "^6.3.6",
+    "@storybook/core-events": "^6.3.6",
+    "@storybook/theming": "^6.3.6",
+    "@types/lodash": "^4.14.172",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "babel-loader": "^8.1.0",
+    "concurrently": "^6.2.0",
+    "copy-webpack-plugin": "^6.4.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "less": "^4.1.1",
+    "less-plugin-variables-output": "^1.2.0",
+    "rimraf": "^3.0.2",
+    "strip-json-comments": "^2.0.1",
+    "typescript": "^4.2.4",
+    "zx": "^1.14.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0",
+    "antd": "^4.16.10"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "tag": "latest"
+  },
+  "keywords": [
+    "storybook-addon",
+    "design",
+    "style",
+    "antd",
+    "ant-design",
+    "theme",
+    "design-systems"
+  ],
+  "storybook": {
+    "displayName": "Customize antd theme"
+  }
+}

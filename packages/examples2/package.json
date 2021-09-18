@@ -15,9 +15,5 @@
     "dev": "lerna run dev --stream",
     "example": "yarn workspace examples storybook",
     "build:example": "yarn workspace examples build-storybook && yarn workspace examples-tab build-storybook && cp -r packages/examples-tab/storybook-static packages/examples/storybook-static/tab"
-  },
-  "devDependencies": {
-    "lerna": "^4.0.0",
-    "prettier": "^2.3.2"
   }
 }
