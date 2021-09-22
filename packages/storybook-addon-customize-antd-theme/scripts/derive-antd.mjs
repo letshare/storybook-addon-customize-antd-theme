@@ -6,10 +6,10 @@ const stripComments = require('strip-json-comments');
 const prettier = require('prettier');
 
 const lessPath = require.resolve('antd/lib/style/themes/default.less');
-const variablePath = path.resolve(__dirname, '../src/lib/antdHelper/variable.json'); // 全部变量值
-const jsonPath = path.resolve(__dirname, '../src/lib/antdHelper/antdLessValue.ts'); // 主题定制值
-const antdPath = path.resolve(__dirname, '../src/lib/antdHelper/antd.less'); // copy过来便于查看
-const descPath = path.resolve(__dirname, '../src/lib/antdHelper/lessValueDesc.ts'); //
+const variablePath = path.resolve(__dirname, '../src/lib/antd-helper/variable.json'); // 全部变量值
+const jsonPath = path.resolve(__dirname, '../src/lib/antd-helper/antdLessValue.ts'); // 主题定制值
+const antdPath = path.resolve(__dirname, '../src/lib/antd-helper/antd.less'); // copy过来便于查看
+const descPath = path.resolve(__dirname, '../src/lib/antd-helper/lessValueDesc.ts'); //
 
 const antdLess = await fs.readFile(lessPath, 'utf8');
 

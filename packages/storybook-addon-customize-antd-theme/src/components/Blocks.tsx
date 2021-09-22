@@ -40,7 +40,7 @@ const lineReg = /[\r\n]+/;
 const jsVarReg = /^\s*['"@]*([^'"\s:]+)['"]?\s*:\s*['"](.+)['"]\s*,?\s*/;
 const lessVarReg = /^\s*@([^\s:]+)\s*:\s*(\S.+)\s*;\s*/;
 
-export default function ControlsPanel() {
+export default function Blocks() {
   const allLessArgs = useMemo(() => new LessArgGenerator(antdLessValue).hints, []);
   const [lessArgs, setLessArgs] = useState(allLessArgs);
   const [argsValues, setArgs] = useState({ ...antdLessValue });
@@ -99,12 +99,18 @@ export default function ControlsPanel() {
     bus.emit(EVENT_RESET_LESS, { ...antdLessValue });
   };
 
+  const onInputClick = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    const element = event.target as HTMLInputElement;
+    element.value = '';
+  };
+
   const readFile = (event: any) => {
     const fr = new FileReader();
+    const file = event.target.files[0];
     fr.onload = function () {
       // console.log(fr.result);
       const lines = (fr.result as string).split(lineReg);
-      const isJs = jsExtReg.test(event.target.files[0].name);
+      const isJs = jsExtReg.test(file.name);
       const args: Record<string, any> = {};
       lines.forEach((line) => {
         const mm = line.match(isJs ? jsVarReg : lessVarReg);
@@ -118,7 +124,7 @@ export default function ControlsPanel() {
       bus.emit(EVENT_CHANGE_LESS, args);
     };
 
-    fr.readAsText(event.target.files[0]);
+    fr.readAsText(file);
   };
 
   return (
@@ -152,7 +158,7 @@ export default function ControlsPanel() {
         </Button>
         <Button small secondary style={{ marginLeft: '8px' }}>
           <InputFile>
-            <input type="file" accept=".js, .less" onChange={readFile} />
+            <input type="file" accept=".js, .less" onChange={readFile} onClick={onInputClick} />
             import less
           </InputFile>
         </Button>
