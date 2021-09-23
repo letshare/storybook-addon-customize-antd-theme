@@ -15,6 +15,7 @@ module.exports = {
   config,
   webpackFinal: (config) => {
     // console.log('from antd', path.resolve(require.resolve('antd'), '../'));
+    // 用于让页面加载antd less
     config.plugins.push(
       new CopyPlugin({
         patterns: [

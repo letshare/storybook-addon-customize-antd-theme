@@ -1327,6 +1327,8 @@ function ImageDemo() {
   );
 }
 
+// 实现 demos按antd design文档的顺序划分
+
 const AllComs = [
   {
     title: 'Buttons',
@@ -1583,7 +1585,7 @@ const AllComs = [
   },
 ];
 
-export default function Components({ filter = '' }: { filter: string }) {
+export default function AntdDemos({ filter = '' }: { filter: string }) {
   const [filterComs, setFilterComs] = useState(AllComs);
 
   const handleSearch = (value: any) => {

@@ -11,8 +11,8 @@
   "author": "ludun.cai@shopee.com",
   "license": "MIT",
   "scripts": {
+    "dev": "lerna run dev --parallel",
     "build": "lerna run build --stream",
-    "dev": "lerna run dev --stream",
     "example": "yarn workspace examples storybook",
     "build:example": "yarn workspace examples build-storybook"
   },

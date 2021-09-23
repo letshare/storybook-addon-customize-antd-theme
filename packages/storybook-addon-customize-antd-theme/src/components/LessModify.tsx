@@ -1,9 +1,9 @@
 /* eslint-disable import/no-webpack-loader-syntax */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { addons } from '@storybook/addons';
-import less from '!!file-loader?modules!../assets/js/less.min.js';
-import theme from '!!file-loader?modules!../assets/less/custom.less';
+import lessScript from '!!file-loader?modules!../assets/js/less.min.js';
+import antdLess from '!!file-loader?modules!../assets/less/antd.less';
 import {
   EVENT_CHANGE_LESS,
   EVENT_RESET_LESS,
@@ -11,11 +11,31 @@ import {
   TRIGGER_EXPORT_LESS,
   EVENT_EXPORT_JS,
   TRIGGER_EXPORT_JS,
+  EVENT_LESS_LOADED,
 } from '../constants';
 
 const modifies = {};
+let scriptLoaded = false;
 
-export default function LessModify() {
+interface LessModifyProps {
+  active: boolean;
+}
+
+export default function LessModify({ active }: LessModifyProps) {
+  const activeRef = useRef(active);
+  if (activeRef.current !== active) {
+    activeRef.current = active;
+  }
+  useEffect(() => {
+    const sheetId = `less:${antdLess.replace(/\.less$/, '')}`;
+    if (!active) {
+      const dom = document.getElementById(sheetId);
+      dom && dom.remove();
+    } else if (scriptLoaded) {
+      window.less.modifyVars(modifies);
+    }
+  }, [active]);
+
   useEffect(() => {
     const bus = addons.getChannel();
     bus.on(EVENT_CHANGE_LESS, (args) => {
@@ -24,8 +44,7 @@ export default function LessModify() {
         vars[`@${key}`] = value;
       }
       Object.assign(modifies, vars);
-      // console.log('modifies', modifies);
-      window.less.modifyVars(modifies);
+      activeRef.current && window.less.modifyVars(modifies);
     });
 
     bus.on(EVENT_RESET_LESS, (args) => {
@@ -37,7 +56,7 @@ export default function LessModify() {
         }
       }
       Object.assign(modifies, vars);
-      window.less.modifyVars(modifies);
+      activeRef.current && window.less.modifyVars(modifies);
     });
 
     bus.on(TRIGGER_EXPORT_JS, () => {
@@ -51,10 +70,21 @@ export default function LessModify() {
     bus.on(TRIGGER_EXPORT_LESS, () => {
       bus.emit(EVENT_EXPORT_LESS, modifies);
     });
+
+    window.onLessScriptLoaded = function () {
+      setTimeout(() => {
+        bus.emit(EVENT_LESS_LOADED);
+      }, 5000);
+    };
+
+    scriptLoaded = true;
   }, []);
 
-  console.log('modifies', modifies);
+  // console.log('LessModify', modifies, antdLess);
 
+  // 实现less自动挂载和检测是否挂载，及手动挂载
+
+  if (scriptLoaded) return null;
   return (
     <Helmet>
       <script type="text/javascript">{`
@@ -64,11 +94,14 @@ export default function LessModify() {
             fileAsync: false,
             poll: 1000,
             javascriptEnabled: true,
-            modifyVars: ${JSON.stringify(modifies)}
+            modifyVars: ${JSON.stringify(modifies)},
           };
         `}</script>
-      <script src={less} type="text/javascript" />
-      <link rel="stylesheet/less" type="text/css" href={theme} />
+      <script src={lessScript} type="text/javascript" />
+      <link rel="stylesheet/less" type="text/css" href={antdLess} />
+      <script type="text/javascript">{`
+          onLessScriptLoaded();
+        `}</script>
     </Helmet>
   );
 }

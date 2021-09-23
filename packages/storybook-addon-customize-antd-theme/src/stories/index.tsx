@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AntdBoard from '../components/AntdBoard';
+import AntdBoard from './components/AntdBoard';
 
 export default {
   title: 'Theme',

@@ -1,12 +1,12 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { useStorybookState } from '@storybook/api';
+import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useParameter } from '@storybook/api';
 import TrieSearch from 'trie-search';
-import { Button } from '@storybook/components';
+import { AddonPanel, Button } from '@storybook/components';
 import { addons } from '@storybook/addons';
 import styled from '@emotion/styled';
 import { pick } from 'lodash';
-import { Input } from 'antd';
-import 'antd/dist/antd.css';
+import Input from 'antd/lib/input';
+import 'antd/lib/input/style/css';
 import {
   EVENT_CHANGE_LESS,
   EVENT_RESET_LESS,
@@ -14,6 +14,8 @@ import {
   TRIGGER_EXPORT_LESS,
   EVENT_EXPORT_JS,
   TRIGGER_EXPORT_JS,
+  EVENT_LESS_LOADED,
+  PARAM_KEY,
 } from '../constants';
 import { LessArgGenerator } from '../lib/utils';
 import antdLessValue from '../lib/antd-helper/antdLessValue';
@@ -40,15 +42,21 @@ const lineReg = /[\r\n]+/;
 const jsVarReg = /^\s*['"@]*([^'"\s:]+)['"]?\s*:\s*['"](.+)['"]\s*,?\s*/;
 const lessVarReg = /^\s*@([^\s:]+)\s*:\s*(\S.+)\s*;\s*/;
 
-export default function Blocks() {
+interface PanelProps {
+  active: boolean;
+}
+
+export default function Panel(props: PanelProps) {
   const allLessArgs = useMemo(() => new LessArgGenerator(antdLessValue).hints, []);
   const [lessArgs, setLessArgs] = useState(allLessArgs);
   const [argsValues, setArgs] = useState({ ...antdLessValue });
   const [bus] = useState(() => addons.getChannel());
+  const paramsRef = useRef<any>({});
+  const params = useParameter(PARAM_KEY);
 
-  const { path } = useStorybookState();
+  paramsRef.current = params;
 
-  // console.log('args', lessArgs, argsValues);
+  // console.log('Panel', paramsRef.current, props, lessArgs, argsValues);
 
   const handleUpdateArgs = useCallback((...args: any[]) => {
     // console.log('handleUpdateArgs', args);
@@ -78,8 +86,16 @@ export default function Blocks() {
       a.download = 'antd-theme.less';
       a.click();
     });
+
+    bus.on(EVENT_LESS_LOADED, (vars) => {
+      const { modifyVars } = paramsRef.current;
+      if (typeof modifyVars === 'object' && Object.keys(modifyVars).length) {
+        bus.emit(EVENT_CHANGE_LESS, modifyVars);
+      }
+    });
   }, []);
 
+  // 实现前缀树搜索
   const handleSearch = (value: any) => {
     if (!value) {
       return setLessArgs(allLessArgs);
@@ -108,7 +124,6 @@ export default function Blocks() {
     const fr = new FileReader();
     const file = event.target.files[0];
     fr.onload = function () {
-      // console.log(fr.result);
       const lines = (fr.result as string).split(lineReg);
       const isJs = jsExtReg.test(file.name);
       const args: Record<string, any> = {};
@@ -128,7 +143,7 @@ export default function Blocks() {
   };
 
   return (
-    <>
+    <AddonPanel {...props}>
       <Tool>
         <Search
           placeholder="input search text"
@@ -166,7 +181,7 @@ export default function Blocks() {
           reset
         </Button>
       </Tool>
-      <ArgsTable key={path} rows={lessArgs} args={argsValues} updateArgs={handleUpdateArgs} />
-    </>
+      <ArgsTable key="customize-antd-theme" rows={lessArgs} args={argsValues} updateArgs={handleUpdateArgs} />
+    </AddonPanel>
   );
 }

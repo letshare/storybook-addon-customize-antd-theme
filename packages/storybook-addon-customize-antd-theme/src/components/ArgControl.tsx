@@ -66,6 +66,7 @@ export default function ArgControl({ control, arg, updateArgs }: ArgControlProps
   // row.name is a display name and not a suitable DOM input id or name - i might contain whitespace etc.
   // row.key is a hash key and therefore a much safer choice
   const props = { name: key, value: boxedValue.value, onChange, onBlur, onFocus } as any;
+  // 实现blur或enter才updateArgs
   const textProps = {
     name: key,
     value: boxedValue.value,

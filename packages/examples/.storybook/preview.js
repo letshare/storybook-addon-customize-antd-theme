@@ -6,4 +6,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  customizeAntdTheme: {
+    modifyVars: require('../src/theme/antd-theme'),
+  },
 };

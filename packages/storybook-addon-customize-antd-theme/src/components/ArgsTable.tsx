@@ -211,6 +211,7 @@ export default function ArgsTable({ rows, args, updateArgs, resetArgs }: ArgsTab
   const groups = groupRows(rows);
   const expandable = Object.keys(groups.sections).length > 0;
   const colSpan = 4;
+  // 实现按category展示，默认收起
   const initialExpanded = Object.keys(rows).length < 40; // item number less then 40 expanded
   return (
     <TableWrapper className="docblock-argstable">

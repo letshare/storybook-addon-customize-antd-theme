@@ -3,6 +3,7 @@ declare module 'react-helmet';
 // eslint-disable-next-line no-unused-vars
 interface Window {
   less: any;
+  onLessScriptLoaded: any;
 }
 declare module 'trie-search';
 

@@ -1,13 +1,11 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import React from 'react';
-import LessModify from './LessModify';
-import Components from './Components';
+import AntdDemos from './AntdDemos';
 
 export default function AntdBoard() {
   return (
     <div>
-      <LessModify />
-      <Components filter="" />
+      <AntdDemos filter="" />
     </div>
   );
 }

@@ -8,12 +8,6 @@
  *
  * https://storybook.js.org/docs/react/writing-stories/decorators#gatsby-focus-wrapper
  */
-import React from 'react';
+import decorator from '../components/Decorator';
 
-export const decorators: any = [
-  (Story: any) => (
-    <div style={{ margin: '3em' }}>
-      <Story />
-    </div>
-  ),
-];
+export const decorators: any = [decorator];
