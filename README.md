@@ -1,6 +1,7 @@
 <div align="center">
 
-[![GitHub license](https://img.shields.io/github/license/pocka/storybook-addon-designs.svg)](https://github.com/pocka/storybook-addon-designs/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/storybook-addon-customize-antd-theme.svg)](https://badge.fury.io/js/storybook-addon-customize-antd-theme)
+[![GitHub license](https://img.shields.io/github/license/letshare/storybook-addon-customize-antd-theme.svg)](https://github.com/letshare/storybook-addon-customize-antd-theme/blob/master/LICENSE)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 </div>
