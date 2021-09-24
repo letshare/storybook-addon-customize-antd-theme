@@ -72,9 +72,20 @@ export default function LessModify({ active }: LessModifyProps) {
     });
 
     window.onLessScriptLoaded = function () {
-      setTimeout(() => {
-        bus.emit(EVENT_LESS_LOADED);
-      }, 5000);
+      let start: number;
+      function retry(timestamp: number) {
+        if (start === undefined) start = timestamp;
+        const elapsed = timestamp - start;
+        if (typeof window.less.modifyVars === 'function') {
+          bus.emit(EVENT_LESS_LOADED);
+          return;
+        }
+        if (elapsed < 6000) {
+          // Stop the animation after 6 seconds
+          window.requestAnimationFrame(retry);
+        }
+      }
+      window.requestAnimationFrame(retry);
     };
 
     scriptLoaded = true;

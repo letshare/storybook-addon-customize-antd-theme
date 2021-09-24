@@ -88,7 +88,7 @@ export default function Panel(props: PanelProps) {
     });
 
     bus.on(EVENT_LESS_LOADED, (vars) => {
-      const { modifyVars } = paramsRef.current;
+      const { modifyVars } = paramsRef.current || {};
       if (typeof modifyVars === 'object' && Object.keys(modifyVars).length) {
         bus.emit(EVENT_CHANGE_LESS, modifyVars);
       }

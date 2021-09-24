@@ -18,7 +18,7 @@ addons.register(ADDON_ID, () => {
   });
 
   addons.add(TOOL_ID, {
-    title: 'Example Storybook toolbar',
+    title: 'Customize Antd Theme',
     // 👇 Sets the type of UI element in Storybook
     type: types.TOOL,
     // 👇 Shows the Toolbar UI element if either the Canvas or Docs tab is active
