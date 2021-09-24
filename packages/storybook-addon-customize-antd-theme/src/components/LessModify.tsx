@@ -27,8 +27,11 @@ export default function LessModify({ active }: LessModifyProps) {
     activeRef.current = active;
   }
   useEffect(() => {
-    const sheetId = `less:${antdLess.replace(/\.less$/, '')}`;
     if (!active) {
+      const sheetId = `less:${location.pathname
+        .replace(/[^/]+$/, '')
+        .replace(/^\//, '')
+        .replace(/\//g, '-')}${antdLess.replace(/\.less$/, '')}`;
       const dom = document.getElementById(sheetId);
       dom && dom.remove();
     } else if (scriptLoaded) {
@@ -80,8 +83,8 @@ export default function LessModify({ active }: LessModifyProps) {
           bus.emit(EVENT_LESS_LOADED);
           return;
         }
-        if (elapsed < 6000) {
-          // Stop the animation after 6 seconds
+        if (elapsed < 20000) {
+          // Stop the animation after 20 seconds
           window.requestAnimationFrame(retry);
         }
       }
