@@ -8,7 +8,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "author": "ludun.cai@shopee.com",
+  "author": "brucecai2012@gmail.com",
   "license": "MIT",
   "scripts": {
     "dev": "lerna run dev --parallel",

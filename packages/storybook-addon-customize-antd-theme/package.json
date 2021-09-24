@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/letshare/storybook-addon-customize-antd-theme"
   },
-  "author": "ludun.cai@shopee.com",
+  "author": "brucecai2012@gmail.com",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
