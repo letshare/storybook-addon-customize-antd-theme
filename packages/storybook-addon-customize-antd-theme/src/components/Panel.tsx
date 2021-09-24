@@ -90,6 +90,9 @@ export default function Panel(props: PanelProps) {
     bus.on(EVENT_LESS_LOADED, (vars) => {
       const { modifyVars } = paramsRef.current || {};
       if (typeof modifyVars === 'object' && Object.keys(modifyVars).length) {
+        setArgs((argsValues) => {
+          return { ...argsValues, ...modifyVars };
+        });
         bus.emit(EVENT_CHANGE_LESS, modifyVars);
       }
     });

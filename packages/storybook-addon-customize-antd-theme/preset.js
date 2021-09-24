@@ -21,7 +21,7 @@ module.exports = {
         patterns: [
           {
             from: path.resolve(require.resolve('antd'), '../'),
-            to: path.resolve(process.env.PWD, './node_modules/.cache/storybook/public/antd/lib/'),
+            to: 'static/antd/lib',
           },
         ],
       })
