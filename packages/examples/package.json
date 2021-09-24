@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.3.0",
@@ -16,7 +16,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "4.0.3",
-    "storybook-addon-customize-antd-theme": "^1.0.1",
+    "storybook-addon-customize-antd-theme": "^1.0.2",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
