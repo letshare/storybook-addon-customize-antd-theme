@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-customize-antd-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a Storybook addon help you visually customize an ant design theme",
   "repository": {
     "type": "git",
