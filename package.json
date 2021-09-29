@@ -11,12 +11,16 @@
   "author": "brucecai2012@gmail.com",
   "license": "MIT",
   "scripts": {
+    "postinstall": "husky install",
     "dev": "lerna run dev --parallel",
     "build": "lerna run build --stream",
     "example": "yarn workspace examples storybook",
     "build:example": "yarn workspace examples build-storybook"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "husky": "^7.0.2",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2"
   }

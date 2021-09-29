@@ -10,7 +10,7 @@
 
 ## storybook-addon-customize-antd-theme
 
-A [Storybook](https://github.com/storybooks/storybook) addon that visually customize an ant design theme in the addon panel for better design-development workflow.
+A [Storybook](https://github.com/storybooks/storybook) addon that help you visually customize an ant design theme in the addon panel for better UI-development workflow.
 
 - [Docs & Demo](https://letshare.github.io/storybook-addon-customize-antd-theme)
 
@@ -18,14 +18,12 @@ A [Storybook](https://github.com/storybooks/storybook) addon that visually custo
 
 - Storybook@>=6.0.0
 
-This addon should work well with any framework: If you find the case the addon not works, please open an issue.
-
 ## Getting started
 
 ### 1. Install
 
 ```sh
-npm install --D storybook-addon-customize-antd-theme
+npm install -D storybook-addon-customize-antd-theme
 # yarn add -D storybook-addon-customize-antd-theme
 ```
 
