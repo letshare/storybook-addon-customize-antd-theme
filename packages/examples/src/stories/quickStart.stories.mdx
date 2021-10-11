@@ -64,3 +64,15 @@ export const parameters = {
   },
 };
 ```
+
+`modifyVars` can also be less string, you can import a less file by `raw-loader`, for example:
+
+```js
+// .storybook/preview.js
+import themeLess from '!!raw-loader!../src/theme/theme.less';
+export const parameters = {
+  customizeAntdTheme: {
+    modifyVars: themeLess,
+  },
+};
+```

@@ -94,6 +94,19 @@ export default function Panel(props: PanelProps) {
           return { ...argsValues, ...modifyVars };
         });
         bus.emit(EVENT_CHANGE_LESS, modifyVars);
+      } else if (typeof modifyVars === 'string') {
+        const lines = modifyVars.split(lineReg);
+        const args: Record<string, any> = {};
+        lines.forEach((line) => {
+          const mm = line.match(lessVarReg);
+          if (mm) {
+            args[mm[1]] = mm[2];
+          }
+        });
+        setArgs((argsValues) => {
+          return { ...argsValues, ...args };
+        });
+        bus.emit(EVENT_CHANGE_LESS, args);
       }
     });
   }, []);
