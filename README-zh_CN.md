@@ -10,26 +10,28 @@
 
 ## storybook-addon-customize-antd-theme
 
-A [Storybook](https://github.com/storybooks/storybook) addon that help you visually customize an ant design theme in the addon panel for better UI-development workflow.
+一个在[Storybook](https://github.com/storybooks/storybook)的插件面板， 可以辅助你可视化定制 ant design 主题的小工具。
 
 - [Docs & Demo](https://letshare.github.io/storybook-addon-customize-antd-theme)
 
-English | [简体中文](./README-zh_CN.md)
+[English](./README.md) | 简体中文
 
-## Requirements
+## 要求
 
 - Storybook@>=6.0.0
 
-## Getting started
+## 使用
 
-### 1. Install
+### 1. 安装
 
 ```sh
 npm install -D storybook-addon-customize-antd-theme
 # yarn add -D storybook-addon-customize-antd-theme
 ```
 
-### 2. Register the addon in `main.js`
+### 2. 在 `main.js` 注册本插件
+
+另外建议导入本插件的一个 antd story`storybook-addon-customize-antd-theme/dist/esm/stories/index.js`
 
 ```js
 module.exports = {
@@ -38,9 +40,9 @@ module.exports = {
 };
 ```
 
-### 3. Setting default story states
+### 3. 设置 story 的默认状态
 
-You can initial setup ant design theme, by setting the `customizeAntdTheme` property on `parameters`:
+你可以在 preview.js 初始化导入一个 ant design 主题，在`parameters`上设置属性`customizeAntdTheme`：
 
 ```js
 // .storybook/preview.js
@@ -55,7 +57,7 @@ export const parameters = {
 };
 ```
 
-`modifyVars` can also be less string, you can import a less file by `raw-loader`, for example:
+`modifyVars` 也可以是 less string，你可以通过 webpack 插件`raw-loader`导入一个 antd design 主题 less 文件，例如：
 
 ```js
 // .storybook/preview.js

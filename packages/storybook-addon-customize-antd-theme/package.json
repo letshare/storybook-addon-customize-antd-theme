@@ -27,7 +27,7 @@
     "buildBabel:esm": "babel ./src -d ./dist/esm --ignore \"src/assets/**/*\" --copy-files --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
     "buildTsc": "tsc --declaration --emitDeclarationOnly --outDir ./dist/ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "cp ../../README.md ./ && yarn build"
+    "prepublishOnly": "cp ../../README.md ./ && cp ../../README-zh_CN.md ./  && yarn build"
   },
   "dependencies": {
     "antd": "^4.16.13",

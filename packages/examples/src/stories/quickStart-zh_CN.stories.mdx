@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TabsState } from '@storybook/components';
+
+<Meta title="Docs/使用指南" />
+
+# 快速开始
+
+1. 首先安装本插件
+
+<TabsState initial="yarn">
+   <div id="yarn" title="Yarn"><div>
+
+```sh
+yarn add -D storybook-addon-customize-antd-theme
+```
+
+  </div></div>
+  <div id="npm" title="NPM"><div>
+
+```sh
+npm i -D storybook-addon-customize-antd-theme
+```
+
+  </div></div>
+</TabsState>
+
+2. 然后在`main.js`注册插件名，另外建议导入本插件的一个 antd story`storybook-addon-customize-antd-theme/dist/esm/stories/index.js`
+
+```js
+// .storybook/main.js
+
+module.exports = {
+  stories: ['storybook-addon-customize-antd-theme/dist/esm/stories/index.js'],
+  addons: ['storybook-addon-customize-antd-theme'],
+};
+```
+
+现在你可以可视化定制 ant design 的主题了。当你修改了本插件面板中 ant design less 变量值，上方 canvas 区域的 ant design 的组件样式会即时响应变化，如下图：
+
+<img src="usage.png" />
+
+你可以在插件中导出对 ant design less 变量值的修改到 js 或 less 文件(根据你的项目以何种方式定制 ant design 主题，参考[👉](https://ant.design/docs/react/customize-theme-cn))。
+
+相对的，你也可以导入包含 ant design less 变量值的 js 或 less 文件到本插件中。
+
+默认本插件会覆盖在 storybook canvas 中的 ant design 组件的样式，你可以通过点击 toolbar 中本插件图标禁用本插件，如图：
+
+<img src="disable.png" />
+
+### 设置 story 的默认状态
+
+你可以在 preview.js 初始化导入一个 ant design 主题，在`parameters`上设置属性`customizeAntdTheme`：
+
+```js
+// .storybook/preview.js
+
+export const parameters = {
+  customizeAntdTheme: {
+    modifyVars: {
+      'primary-color': '#ff1771',
+      'border-radius-base': '20px',
+    },
+  },
+};
+```
+
+`modifyVars` 也可以是 less string，你可以通过 webpack 插件`raw-loader`导入一个 antd design 主题 less 文件，例如：
+
+```js
+// .storybook/preview.js
+import themeLess from '!!raw-loader!../src/theme/theme.less';
+export const parameters = {
+  customizeAntdTheme: {
+    modifyVars: themeLess,
+  },
+};
+```
