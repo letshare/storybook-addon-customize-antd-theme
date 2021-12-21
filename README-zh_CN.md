@@ -10,7 +10,7 @@
 
 ## storybook-addon-customize-antd-theme
 
-一个在[Storybook](https://github.com/storybooks/storybook)的插件面板， 可以辅助你可视化定制 ant design 主题的小工具。
+一个[Storybook](https://github.com/storybooks/storybook)插件， 它可以辅助你可视化定制 ant design 主题。
 
 - [Docs & Demo](https://letshare.github.io/storybook-addon-customize-antd-theme)
 
@@ -57,7 +57,7 @@ export const parameters = {
 };
 ```
 
-`modifyVars` 也可以是 less string，你可以通过 webpack 插件`raw-loader`导入一个 antd design 主题 less 文件，例如：
+`modifyVars` 也可以是 less string，可以通过 webpack 插件`raw-loader`导入一个 antd design 主题 less 文件，例如：
 
 ```js
 // .storybook/preview.js
