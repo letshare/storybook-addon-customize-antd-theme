@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.getRenderPropValue=void 0;var getRenderPropValue=function getRenderPropValue(propValue){return propValue?"function"==typeof propValue?propValue():propValue:null};exports.getRenderPropValue=getRenderPropValue;

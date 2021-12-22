@@ -1,0 +1,1 @@
+"use strict";var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _et_EE=_interopRequireDefault(require("../locale/et_EE")),_default=_et_EE.default;exports.default=_default;

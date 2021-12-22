@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var isNumeric=function isNumeric(value){return!isNaN(parseFloat(value))&&isFinite(value)},_default=isNumeric;exports.default=_default;

@@ -1,0 +1,1 @@
+"use strict";var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _bg_BG=_interopRequireDefault(require("../locale/bg_BG")),_default=_bg_BG.default;exports.default=_default;

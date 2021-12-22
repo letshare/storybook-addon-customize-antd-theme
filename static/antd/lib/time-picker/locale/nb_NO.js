@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var locale={placeholder:"Velg tid",rangePlaceholder:["Starttid","Sluttid"]},_default=locale;exports.default=_default;

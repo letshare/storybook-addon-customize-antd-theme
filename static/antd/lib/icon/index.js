@@ -1,0 +1,1 @@
+"use strict";var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _devWarning=_interopRequireDefault(require("../_util/devWarning")),Icon=function Icon(){return(0,_devWarning.default)(!1,"Icon","Empty Icon"),null},_default=Icon;exports.default=_default;

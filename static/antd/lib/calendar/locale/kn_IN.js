@@ -1,0 +1,1 @@
+"use strict";var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _kn_IN=_interopRequireDefault(require("../../date-picker/locale/kn_IN")),_default=_kn_IN.default;exports.default=_default;

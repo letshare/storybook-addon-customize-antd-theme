@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.isPresetColor=isPresetColor;var _colors=require("../_util/colors");function isPresetColor(color){return-1!==_colors.PresetColorTypes.indexOf(color)}

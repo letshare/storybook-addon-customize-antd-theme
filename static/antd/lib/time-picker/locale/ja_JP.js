@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var locale={placeholder:"時間を選択",rangePlaceholder:["開始時間","終了時間"]},_default=locale;exports.default=_default;

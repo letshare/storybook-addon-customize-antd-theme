@@ -1,0 +1,1 @@
+"use strict";function ColumnGroup(_){return null}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _default=ColumnGroup;exports.default=_default;

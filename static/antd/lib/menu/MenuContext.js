@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _react=require("react"),MenuContext=(0,_react.createContext)({prefixCls:"",firstLevel:!0,inlineCollapsed:!1}),_default=MenuContext;exports.default=_default;
