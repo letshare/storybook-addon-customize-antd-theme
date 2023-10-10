@@ -7,7 +7,7 @@ import {
   NumberControl,
   ObjectControl,
   RangeControl,
-} from '@storybook/components';
+} from '@storybook/blocks';
 import TextControl from './TextControl';
 import { Args } from '../interface';
 import { uniqueId } from 'lodash';
